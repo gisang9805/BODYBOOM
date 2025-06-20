@@ -1,46 +1,47 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>BODYBOOM 회원 가입 계약서</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
   <style>
     body {
       font-family: 'Arial', sans-serif;
-      background-color: #f9f9f9;
       margin: 0;
       padding: 0;
+      background-color: #f9f9f9;
     }
     .container {
       width: 95%;
       max-width: 600px;
       margin: 20px auto;
-      background: #fff;
-      padding: 20px;
+      padding: 15px;
+      background-color: #ffffff;
       box-shadow: 0 0 8px rgba(0,0,0,0.1);
     }
     h1 {
       text-align: center;
-      font-size: 20px;
       color: #2c3e50;
+      font-size: 20px;
+      margin-bottom: 30px;
     }
     h3 {
+      color: #2c3e50;
       font-size: 16px;
       margin-top: 30px;
-      color: #2c3e50;
     }
     table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 14px;
       margin-bottom: 25px;
+      font-size: 14px;
     }
     th, td {
       border: 1px solid #ccc;
       padding: 8px;
-      vertical-align: middle;
       text-align: left;
+      vertical-align: middle;
     }
     th {
       background-color: #ecf0f1;
@@ -53,22 +54,40 @@
       width: 100%;
       padding: 6px;
       box-sizing: border-box;
+      font-size: 14px;
     }
     input[type="radio"] {
       margin-right: 5px;
     }
     .submit-button {
-      width: 100%;
-      padding: 10px;
       background-color: #2980b9;
       color: white;
+      padding: 10px 15px;
       font-size: 16px;
       border: none;
       border-radius: 5px;
       cursor: pointer;
+      margin-top: 20px;
+      display: block;
+      width: 100%;
     }
     .submit-button:hover {
       background-color: #1e6ea7;
+    }
+    select[name="birth_year"],
+    select[name="birth_month"],
+    select[name="birth_day"] {
+      width: 30%;
+      display: inline-block;
+      margin-right: 2%;
+    }
+    select[name="birth_day"] {
+      margin-right: 0;
+    }
+    .phone-input input {
+      width: auto;
+      display: inline-block;
+      text-align: center;
     }
     .fee-note {
       display: inline-block;
@@ -78,210 +97,212 @@
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>BODYBOOM 회원 가입 계약서</h1>
+<div class="container">
+  <h1>BODYBOOM 회원 가입 계약서</h1>
+  <form id="contractForm" onsubmit="handleSubmit(event)">
 
-    <form id="contractForm" onsubmit="handleSubmit(event)">
-      <!-- 인적사항 -->
-      <h3>① 인적사항</h3>
-      <table>
-        <tr><th>성명</th><td><input type="text" name="name"></td></tr>
-        <tr>
-          <th>성별</th>
-          <td>
-            <label><input type="radio" name="gender" value="남성"> 남성</label>
-            <label><input type="radio" name="gender" value="여성"> 여성</label>
-          </td>
-        </tr>
-        <tr>
-          <th>생년월일</th>
-          <td>
-            <select name="birth_year" id="birth_year"><option value="">년도</option></select>
-            <select name="birth_month" id="birth_month"><option value="">월</option></select>
-            <select name="birth_day" id="birth_day"><option value="">일</option></select>
-          </td>
-        </tr>
-        <tr>
-          <th>연락처</th>
-          <td>
-            <input type="text" value="010" readonly size="3"> -
-            <input type="text" name="phone_mid" maxlength="4" size="4"> -
-            <input type="text" name="phone_end" maxlength="4" size="4">
-          </td>
-        </tr>
-        <tr>
-          <th>우편번호</th>
-          <td>
-            <input type="text" id="postcode" name="postcode" readonly style="width:45%;">
-            <button type="button" onclick="execDaumPostcode()">우편번호 찾기</button>
-          </td>
-        </tr>
-        <tr><th>주소</th><td><input type="text" id="address" name="address" readonly></td></tr>
-        <tr><th>상세주소</th><td><input type="text" id="detailAddress" name="detailAddress"></td></tr>
-        <tr><th>추천인</th><td><input type="text" name="referrer"></td></tr>
-      </table>
+    <!-- ① 인적사항 -->
+    <h3>① 인적사항</h3>
+    <table>
+      <tr><th>성명</th><td><input type="text" name="name" maxlength="20"></td></tr>
+      <tr>
+        <th>성별</th>
+        <td>
+          <label><input type="radio" name="gender" value="남성"> 남성</label>
+          &nbsp;&nbsp;
+          <label><input type="radio" name="gender" value="여성"> 여성</label>
+        </td>
+      </tr>
+      <tr>
+        <th>생년월일</th>
+        <td>
+          <select name="birth_year" id="birth_year"><option value="">년도</option></select>
+          <select name="birth_month" id="birth_month"><option value="">월</option></select>
+          <select name="birth_day" id="birth_day"><option value="">일</option></select>
+        </td>
+      </tr>
+      <tr>
+        <th>연락처</th>
+        <td class="phone-input">
+          <input type="text" value="010" readonly size="3"> -
+          <input type="text" name="phone_mid" maxlength="4" size="4"> -
+          <input type="text" name="phone_end" maxlength="4" size="4">
+        </td>
+      </tr>
+      <tr>
+        <th>우편번호</th>
+        <td>
+          <input type="text" id="postcode" name="postcode" readonly style="width:45%; display:inline-block;">
+          <button type="button" onclick="execDaumPostcode()" style="width:50%; display:inline-block;">우편번호 찾기</button>
+        </td>
+      </tr>
+      <tr><th>주소</th><td><input type="text" id="address" name="address" readonly></td></tr>
+      <tr><th>상세주소</th><td><input type="text" id="detailAddress" name="detailAddress"></td></tr>
+      <tr><th>추천인</th><td><input type="text" name="referrer"></td></tr>
+    </table>
 
-      <!-- 회원권 정보 -->
-      <h3>② 회원권 정보</h3>
-      <table>
-        <tr>
-          <th>회원권 종류</th>
-          <td>
-            <label><input type="radio" name="membership_type" value="헬스"> 헬스</label>
-            <label><input type="radio" name="membership_type" value="헬스+스피닝"> 헬스+스피닝</label>
-          </td>
-        </tr>
-        <tr>
-          <th>회원권 기간</th>
-          <td>
-            <select name="prepaid_months" id="prepaid_months">
-              <option value="">선택</option>
-              <option value="1">1개월</option>
-              <option value="3">3개월</option>
-              <option value="6">6개월</option>
-              <option value="12">12개월</option>
-            </select>
-          </td>
-        </tr>
-        <tr><th>계약 금액</th><td><input type="text" name="contract_amount" readonly></td></tr>
-        <tr>
-          <th>운동복</th>
-          <td>
-            <label><input type="radio" name="uniform_use" value="O"> O</label>
-            <label><input type="radio" name="uniform_use" value="X"> X</label>
-            <span class="fee-note" id="uniform_fee_note"></span>
-          </td>
-        </tr>
-        <tr>
-          <th>락커</th>
-          <td>
-            <label><input type="radio" name="locker_use" value="O"> O</label>
-            <label><input type="radio" name="locker_use" value="X"> X</label>
-            <span class="fee-note" id="locker_fee_note"></span>
-          </td>
-        </tr>
-        <tr>
-          <th>등록비</th>
-          <td>
-            <label><input type="radio" name="registration_fee_check" value="O"> O</label>
-            <label><input type="radio" name="registration_fee_check" value="X" checked> X</label>
-            <span class="fee-note" id="registration_fee_note"></span>
-          </td>
-        </tr>
-        <tr><th>총금액</th><td><input type="text" name="total_amount" readonly></td></tr>
-      </table>
+    <!-- ② 회원권 정보 -->
+    <h3>② 회원권 정보</h3>
+    <table>
+      <tr>
+        <th>회원권 종류</th>
+        <td>
+          <label><input type="radio" name="membership_type" value="헬스"> 헬스</label>
+          &nbsp;&nbsp;
+          <label><input type="radio" name="membership_type" value="헬스+스피닝"> 헬스+스피닝</label>
+        </td>
+      </tr>
+      <tr>
+        <th>회원권 기간</th>
+        <td>
+          <select name="prepaid_months" id="prepaid_months">
+            <option value="">선택</option>
+            <option value="1">1개월</option>
+            <option value="3">3개월</option>
+            <option value="6">6개월</option>
+            <option value="12">12개월</option>
+          </select>
+        </td>
+      </tr>
+      <tr><th>계약 금액 (₩)</th><td><input type="text" name="contract_amount" readonly></td></tr>
+      <tr>
+        <th>운동복</th>
+        <td>
+          <label><input type="radio" name="uniform_use" value="O"> O</label>
+          <label><input type="radio" name="uniform_use" value="X"> X</label>
+          <span id="uniform_price" style="margin-left: 10px; display: inline-block;"></span>
+          <div class="fee-note" id="uniform_fee_note"></div>
+        </td>
+      </tr>
+      <tr>
+        <th>락커</th>
+        <td>
+          <label><input type="radio" name="locker_use" value="O"> O</label>
+          <label><input type="radio" name="locker_use" value="X"> X</label>
+          <span id="uniform_price" style="margin-left: 10px; display: inline-block;"></span>
+          <div class="fee-note" id="locker_fee_note"></div>
+        </td>
+      </tr>
+      <tr>
+        <th>리뷰작성<br>등록비 2만원</th>
+        <td>
+          <label><input type="radio" name="registration_fee_check" value="O"> O</label>
+          <label><input type="radio" name="registration_fee_check" value="X" checked> X</label>
+          <span id="uniform_price" style="margin-left: 10px; display: inline-block;"></span>
+          <div class="fee-note" id="registration_fee_note"></div>
+        </td>
+      </tr>
+      <tr><th>총금액 (₩)</th><td><input type="text" name="total_amount" readonly></td></tr>
+    </table>
 
-      <!-- 운동 정보 -->
-      <h3>③ 운동 정보</h3>
-      <table>
-        <tr>
-          <th>운동 시간대</th>
-          <td>
-            <label><input type="radio" name="time" value="오전"> 오전</label>
-            <label><input type="radio" name="time" value="오후"> 오후</label>
-          </td>
-        </tr>
-        <tr>
-          <th>운동 목적</th>
-          <td>
-            <select name="purpose">
-              <option value="감량">감량</option>
-              <option value="증량">증량</option>
-              <option value="건강">건강</option>
-              <option value="재활">재활</option>
-            </select>
-          </td>
-        </tr>
-      </table>
+    <!-- ③ 운동 정보 -->
+    <h3>③ 운동 정보</h3>
+    <table>
+      <th>운동 시간대</th>
+    <td>
+      <label><input type="radio" name="time" value="오전"> 오전</label>
+      &nbsp;&nbsp;
+      <label><input type="radio" name="time" value="오후"> 오후</label>
+    </td>
+      <tr>
+        <th>운동 목적</th>
+        <td>
+          <select name="purpose">
+            <option value="체중감량">체중감량</option>
+            <option value="체중증량">체중증량</option>
+            <option value="건강">건강</option>
+            <option value="재활">재활</option>
+          </select>
+        </td>
+      </tr>
+    </table>
 
-      <!-- 기타 -->
-      <h3>④ 기타</h3>
-      <table>
-        <tr>
-          <th>SNS 동의</th>
-          <td>
-            <label><input type="radio" name="sns_agree" value="동의"> 동의</label>
-            <label><input type="radio" name="sns_agree" value="비동의"> 비동의</label>
-          </td>
-        </tr>
-      </table>
+    <!-- ④ 기타 -->
+    <h3>④ 기타 동의</h3>
+    <table>
+      <tr>
+        <th>SNS 동의</th>
+        <td>
+    <label><input type="radio" name="sns_agree" value="동의"> 동의</label>
+    &nbsp;&nbsp;
+    <label><input type="radio" name="sns_agree" value="비동의"> 비동의</label>
+  </td>
+      </tr>
+    </table>
 
-      <button type="submit" class="submit-button">계약서 제출</button>
-    </form>
-  </div>
+    <button type="submit" class="submit-button">계약서 제출</button>
+  </form>
+</div>
 
-  <script>
-    // 생년월일
-    const yearSelect = document.getElementById("birth_year");
-    const monthSelect = document.getElementById("birth_month");
-    const daySelect = document.getElementById("birth_day");
-    const currentYear = new Date().getFullYear();
-    for (let y = currentYear; y >= 1920; y--) yearSelect.add(new Option(y, y));
-    for (let m = 1; m <= 12; m++) monthSelect.add(new Option(m, m));
-    for (let d = 1; d <= 31; d++) daySelect.add(new Option(d, d));
+<script>
+  const yearSelect = document.getElementById("birth_year");
+  const monthSelect = document.getElementById("birth_month");
+  const daySelect = document.getElementById("birth_day");
+  const currentYear = new Date().getFullYear();
+  for (let y = currentYear; y >= 1920; y--) yearSelect.add(new Option(y, y));
+  for (let m = 1; m <= 12; m++) monthSelect.add(new Option(m, m));
+  for (let d = 1; d <= 31; d++) daySelect.add(new Option(d, d));
 
-    // 주소 검색
-    function execDaumPostcode() {
-      new daum.Postcode({
-        oncomplete: function(data) {
-          document.getElementById('postcode').value = data.zonecode;
-          document.getElementById('address').value = data.roadAddress || data.jibunAddress;
-          document.getElementById('detailAddress').focus();
-        }
-      }).open();
-    }
-
-    // 계약 금액 계산
-    const priceMap = {
-      "헬스": { "1": 90000, "3": 210000, "6": 300000, "12": 480000 },
-      "헬스+스피닝": { "1": 180000, "3": 360000, "6": 600000, "12": 840000 }
-    };
-
-    const membershipTypeInputs = document.querySelectorAll('input[name="membership_type"]');
-    const prepaidSelect = document.getElementById('prepaid_months');
-    const contractAmountInput = document.querySelector('input[name="contract_amount"]');
-    const totalAmountInput = document.querySelector('input[name="total_amount"]');
-
-    const uniformRadios = document.querySelectorAll('input[name="uniform_use"]');
-    const lockerRadios = document.querySelectorAll('input[name="locker_use"]');
-    const regRadios = document.querySelectorAll('input[name="registration_fee_check"]');
-
-    function updateAllPrices() {
-      const type = document.querySelector('input[name="membership_type"]:checked')?.value;
-      const months = parseInt(prepaidSelect.value);
-      const uniformUse = document.querySelector('input[name="uniform_use"]:checked')?.value;
-      const lockerUse = document.querySelector('input[name="locker_use"]:checked')?.value;
-      const regUse = document.querySelector('input[name="registration_fee_check"]:checked')?.value;
-
-      const contract = priceMap[type]?.[months] || 0;
-      const uniform = (uniformUse === "O" ? 10000 * months : 0);
-      const locker = (lockerUse === "O" ? 10000 * months : 0);
-      const regFee = (regUse === "X" ? 20000 : 0);
-
-      contractAmountInput.value = contract ? contract.toLocaleString() : "";
-      document.getElementById("uniform_fee_note").innerText = uniform ? `+${uniform.toLocaleString()}원` : '';
-      document.getElementById("locker_fee_note").innerText = locker ? `+${locker.toLocaleString()}원` : '';
-      document.getElementById("registration_fee_note").innerText = `+${regFee.toLocaleString()}원`;
-
-      const total = contract + uniform + locker + regFee;
-      totalAmountInput.value = total.toLocaleString();
-    }
-
-    [...membershipTypeInputs, prepaidSelect, ...uniformRadios, ...lockerRadios, ...regRadios].forEach(el => {
-      el.addEventListener("change", updateAllPrices);
-    });
-
-    // 제출 시 정보 저장하고 이동
-    function handleSubmit(event) {
-      event.preventDefault();
-      const formData = new FormData(document.getElementById("contractForm"));
-      const data = {};
-      for (const [key, value] of formData.entries()) {
-        data[key] = value;
+  function execDaumPostcode() {
+    new daum.Postcode({
+      oncomplete: function(data) {
+        document.getElementById('postcode').value = data.zonecode;
+        document.getElementById('address').value = data.roadAddress || data.jibunAddress;
+        document.getElementById('detailAddress').focus();
       }
-      localStorage.setItem("contractData", JSON.stringify(data));
-      window.location.href = "next.html";
-    }
-  </script>
+    }).open();
+  }
+
+  const priceMap = {
+    "헬스": { "1": 90000, "3": 210000, "6": 300000, "12": 480000 },
+    "헬스+스피닝": { "1": 180000, "3": 360000, "6": 600000, "12": 840000 }
+  };
+
+  const membershipTypeInputs = document.querySelectorAll('input[name="membership_type"]');
+  const prepaidSelect = document.getElementById('prepaid_months');
+  const contractAmountInput = document.querySelector('input[name="contract_amount"]');
+  const totalAmountInput = document.querySelector('input[name="total_amount"]');
+
+  const uniformRadios = document.querySelectorAll('input[name="uniform_use"]');
+  const lockerRadios = document.querySelectorAll('input[name="locker_use"]');
+  const regRadios = document.querySelectorAll('input[name="registration_fee_check"]');
+
+  function updateAllPrices() {
+    const type = document.querySelector('input[name="membership_type"]:checked')?.value;
+    const months = prepaidSelect.value;
+
+    let contract = priceMap[type]?.[months] || 0;
+    contractAmountInput.value = contract ? contract.toLocaleString() : "";
+
+    const uniform = document.querySelector('input[name="uniform_use"]:checked')?.value === "O" ? 10000 * months : 0;
+    const locker = document.querySelector('input[name="locker_use"]:checked')?.value === "O" ? 10000 * months : 0;
+    const regFee = document.querySelector('input[name="registration_fee_check"]:checked')?.value === "X" ? 20000 : 0;
+
+    document.getElementById('uniform_fee_note').innerText = uniform ? `${uniform.toLocaleString()}원` : '';
+    document.getElementById('locker_fee_note').innerText = locker ? `${locker.toLocaleString()}원` : '';
+    document.getElementById('registration_fee_note').innerText = regFee ? `${regFee.toLocaleString()}원` : '0원';
+
+    const total = contract + uniform + locker + regFee;
+    totalAmountInput.value = total.toLocaleString();
+  }
+
+  membershipTypeInputs.forEach(el => el.addEventListener('change', updateAllPrices));
+  prepaidSelect.addEventListener('change', updateAllPrices);
+  [...uniformRadios, ...lockerRadios, ...regRadios].forEach(el => el.addEventListener('change', updateAllPrices));
+
+  // 👉 제출 시 페이지 이동
+  function handleSubmit(event) {
+    event.preventDefault(); // 기본 제출 막기
+    const form = document.getElementById('contractForm');
+    const formData = new FormData(form);
+    const data = {};
+    formData.forEach((value, key) => {
+      data[key] = value;
+    });
+    localStorage.setItem('contractData', JSON.stringify(data));
+    window.location.href = 'next.html'; // 요약 페이지로 이동
+  }
+
+</script>
 </body>
 </html>
