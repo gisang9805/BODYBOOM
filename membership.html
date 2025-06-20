@@ -34,14 +34,21 @@
       border: 1px solid #ccc;
       padding: 8px;
       text-align: left;
+      vertical-align: middle;
     }
     th {
       background-color: #ecf0f1;
     }
-    input, select {
+    input[type="text"],
+    input[type="date"],
+    input[type="number"],
+    select {
       width: 100%;
       padding: 6px;
       box-sizing: border-box;
+    }
+    input[type="radio"] {
+      margin-right: 5px;
     }
     .submit-button {
       background-color: #2980b9;
@@ -73,10 +80,9 @@
           <td><input type="text" name="name"></td>
           <th>성별</th>
           <td>
-            <select name="gender">
-              <option value="남성">남성</option>
-              <option value="여성">여성</option>
-            </select>
+            <label><input type="radio" name="gender" value="남성"> 남성</label>
+            &nbsp;&nbsp;
+            <label><input type="radio" name="gender" value="여성"> 여성</label>
           </td>
         </tr>
         <tr>
