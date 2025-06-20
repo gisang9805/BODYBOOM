@@ -5,119 +5,186 @@
   <title>헬스장 회원가입 계약서</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Arial', sans-serif;
       margin: 40px;
+      background-color: #f9f9f9;
     }
-    label {
-      display: block;
-      margin: 10px 0 4px;
+    h1, h3 {
+      color: #2c3e50;
     }
-    input, select, textarea {
+    table {
       width: 100%;
-      padding: 8px;
-      margin-bottom: 15px;
-    }
-    .section {
+      border-collapse: collapse;
       margin-bottom: 30px;
+      background-color: white;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #ecf0f1;
+    }
+    input, select {
+      width: 100%;
+      padding: 6px;
+      box-sizing: border-box;
     }
     .submit-button {
-      background-color: #2e86de;
+      background-color: #2980b9;
       color: white;
-      border: none;
-      padding: 10px 20px;
+      padding: 12px 20px;
       font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .submit-button:hover {
+      background-color: #1e6ea7;
     }
   </style>
 </head>
 <body>
 
-  <h1>회원 가입 계약서</h1>
+  <h1>헬스장 회원가입 계약서</h1>
 
   <form id="contractForm">
 
+    <!-- ① 인적사항 -->
     <div class="section">
       <h3>① 인적사항</h3>
-      <label>성명</label>
-      <input type="text" name="name">
-
-      <label>생년월일</label>
-      <input type="date" name="birth">
-
-      <label>성별</label>
-      <select name="gender">
-        <option value="남성">남성</option>
-        <option value="여성">여성</option>
-      </select>
-
-      <label>연락처</label>
-      <input type="text" name="phone">
-
-      <label>주소</label>
-      <input type="text" name="address">
-
-      <label>추천인</label>
-      <input type="text" name="referrer">
+      <table>
+        <tr>
+          <th>성명</th>
+          <td><input type="text" name="name"></td>
+          <th>성별</th>
+          <td>
+            <select name="gender">
+              <option value="남성">남성</option>
+              <option value="여성">여성</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <th>생년월일</th>
+          <td><input type="date" name="birth"></td>
+          <th>연락처</th>
+          <td><input type="text" name="phone"></td>
+        </tr>
+        <tr>
+          <th>주소</th>
+          <td colspan="3"><input type="text" name="address"></td>
+        </tr>
+        <tr>
+          <th>추천인</th>
+          <td colspan="3"><input type="text" name="referrer"></td>
+        </tr>
+      </table>
     </div>
 
+    <!-- ② 회원권 정보 -->
     <div class="section">
       <h3>② 회원권 정보</h3>
-      <label>회원권 종류</label>
-      <input type="text" name="membership_type">
-
-      <label>계약 유형</label>
-      <select name="contract_type">
-        <option value="개인">개인</option>
-        <option value="재가입">재가입</option>
-        <option value="만기된 회원 재가입">만기된 회원 재가입</option>
-        <option value="업그레이드">업그레이드</option>
-        <option value="양도">양도</option>
-      </select>
-
-      <label>선불 기간 (개월)</label>
-      <input type="number" name="prepaid_months">
-
-      <label>운동 시작일</label>
-      <input type="date" name="start_date">
-
-      <label>계약 금액 (₩)</label>
-      <input type="number" name="contract_amount">
+      <table>
+        <tr>
+          <th>회원권 종류</th>
+          <td><input type="text" name="membership_type"></td>
+          <th>계약 유형</th>
+          <td>
+            <select name="contract_type">
+              <option value="개인">개인</option>
+              <option value="재가입">재가입</option>
+              <option value="만기된 회원 재가입">만기된 회원 재가입</option>
+              <option value="업그레이드">업그레이드</option>
+              <option value="양도">양도</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <th>선불 기간 (개월)</th>
+          <td><input type="number" name="prepaid_months"></td>
+          <th>운동 시작일</th>
+          <td><input type="date" name="start_date"></td>
+        </tr>
+        <tr>
+          <th>계약 금액 (₩)</th>
+          <td><input type="number" name="contract_amount"></td>
+          <th>등록비 (₩)</th>
+          <td><input type="number" name="registration_fee" value="20000"></td>
+        </tr>
+      </table>
     </div>
 
+    <!-- ③ 부가서비스 -->
     <div class="section">
       <h3>③ 부가서비스</h3>
-      <label>O.T 비용</label>
-      <input type="number" name="ot_fee">
-
-      <label>운동복</label>
-      <input type="number" name="uniform_fee">
-
-      <label>라커비</label>
-      <input type="number" name="locker_fee">
+      <table>
+        <tr>
+          <th>O.T 비용 (₩)</th>
+          <td><input type="number" name="ot_fee"></td>
+          <th>기간비 (₩)</th>
+          <td><input type="number" name="period_fee"></td>
+        </tr>
+        <tr>
+          <th>운동복 (₩)</th>
+          <td><input type="number" name="uniform_fee"></td>
+          <th>라커비 (₩)</th>
+          <td><input type="number" name="locker_fee"></td>
+        </tr>
+        <tr>
+          <th>참고사항</th>
+          <td colspan="3"><input type="text" name="notes"></td>
+        </tr>
+      </table>
     </div>
 
+    <!-- ④ 운동 정보 -->
     <div class="section">
       <h3>④ 운동 정보</h3>
-      <label>운동 시간대</label>
-      <input type="text" name="time">
-
-      <label>운동 목적</label>
-      <select name="purpose">
-        <option value="감량">감량</option>
-        <option value="증량">증량</option>
-        <option value="건강">건강</option>
-        <option value="재활">재활</option>
-      </select>
+      <table>
+        <tr>
+          <th>운동 시간대</th>
+          <td><input type="text" name="time"></td>
+          <th>운동 목적</th>
+          <td>
+            <select name="purpose">
+              <option value="감량">감량</option>
+              <option value="증량">증량</option>
+              <option value="건강">건강</option>
+              <option value="재활">재활</option>
+              <option value="기타">기타</option>
+            </select>
+          </td>
+        </tr>
+      </table>
     </div>
 
+    <!-- ⑤ 기타 -->
     <div class="section">
-      <label>사진 촬영 및 SNS 업로드 동의</label>
-      <select name="sns_agree">
-        <option value="동의">동의</option>
-        <option value="비동의">비동의</option>
-      </select>
+      <h3>⑤ 기타 동의 및 서명</h3>
+      <table>
+        <tr>
+          <th>SNS 사진 업로드 동의</th>
+          <td>
+            <select name="sns_agree">
+              <option value="동의">동의</option>
+              <option value="비동의">비동의</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <th>전자 서명 (이름 입력)</th>
+          <td><input type="text" name="signature"></td>
+        </tr>
+      </table>
     </div>
 
-    <button type="submit" class="submit-button">계약서 제출</button>
+    <!-- 제출 -->
+    <div class="section" style="text-align: center;">
+      <button type="submit" class="submit-button">계약서 제출</button>
+    </div>
+
   </form>
 
 </body>
