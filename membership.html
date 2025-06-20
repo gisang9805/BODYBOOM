@@ -73,6 +73,16 @@
     .submit-button:hover {
       background-color: #1e6ea7;
     }
+    select[name="birth_year"],
+    select[name="birth_month"],
+    select[name="birth_day"] {
+      width: 32%;
+      display: inline-block;
+      margin-right: 2%;
+    }
+    select[name="birth_day"] {
+      margin-right: 0;
+    }
   </style>
 </head>
 <body>
@@ -94,7 +104,14 @@
             <label><input type="radio" name="gender" value="여성"> 여성</label>
           </td>
         </tr>
-        <tr><th>생년월일</th><td><input type="date" name="birth"></td></tr>
+        <tr>
+          <th>생년월일</th>
+          <td>
+            <select name="birth_year" id="birth_year"><option value="">년도</option></select>
+            <select name="birth_month" id="birth_month"><option value="">월</option></select>
+            <select name="birth_day" id="birth_day"><option value="">일</option></select>
+          </td>
+        </tr>
         <tr><th>연락처</th><td><input type="text" name="phone"></td></tr>
         <tr><th>주소</th><td><input type="text" name="address"></td></tr>
         <tr><th>추천인</th><td><input type="text" name="referrer"></td></tr>
@@ -169,6 +186,32 @@
 
     </form>
   </div>
+
+  <!-- 생년월일 셀렉트 옵션 채우기 -->
+  <script>
+    const yearSelect = document.getElementById("birth_year");
+    const monthSelect = document.getElementById("birth_month");
+    const daySelect = document.getElementById("birth_day");
+
+    const currentYear = new Date().getFullYear();
+    for (let y = currentYear; y >= 1920; y--) {
+      const opt = document.createElement("option");
+      opt.value = opt.text = y;
+      yearSelect.add(opt);
+    }
+
+    for (let m = 1; m <= 12; m++) {
+      const opt = document.createElement("option");
+      opt.value = opt.text = m;
+      monthSelect.add(opt);
+    }
+
+    for (let d = 1; d <= 31; d++) {
+      const opt = document.createElement("option");
+      opt.value = opt.text = d;
+      daySelect.add(opt);
+    }
+  </script>
 
 </body>
 </html>
