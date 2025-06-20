@@ -52,15 +52,14 @@
   const data = JSON.parse(localStorage.getItem('contractData') || '{}');
   const table = document.getElementById('summaryTable');
 
-  // 항목별 보기 좋은 이름 매핑
   const labels = {
     name: "성명",
     gender: "성별",
     birth_year: "생년",
     birth_month: "생월",
     birth_day: "생일",
-    phone_mid: "연락처 (중간)",
-    phone_end: "연락처 (끝)",
+    phone_mid: "연락처",
+    phone_end: "연락처",
     postcode: "우편번호",
     address: "주소",
     detailAddress: "상세주소",
@@ -79,6 +78,16 @@
   };
 
   for (const key in data) {
+    // 전화번호는 조합해서 한 줄로 표시
+    if (key === "phone_mid") continue;
+    if (key === "phone_end") {
+      const phone = `010-${data["phone_mid"] || ""}-${data["phone_end"] || ""}`;
+      const row = document.createElement('tr');
+      row.innerHTML = `<th>연락처</th><td>${phone}</td>`;
+      table.appendChild(row);
+      continue;
+    }
+
     const row = document.createElement('tr');
     const labelCell = document.createElement('th');
     labelCell.textContent = labels[key] || key;
