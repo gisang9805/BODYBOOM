@@ -3,42 +3,48 @@
 <head>
   <meta charset="UTF-8">
   <title>BODYBOOM 회원 가입 계약서</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- 모바일 대응 -->
   <style>
     body {
       font-family: 'Arial', sans-serif;
       margin: 0;
+      padding: 0;
       background-color: #f9f9f9;
     }
     .container {
+      width: 95%;
       max-width: 600px;
-      margin: 40px auto;
-      padding: 20px;
+      margin: 20px auto;
+      padding: 15px;
       background-color: #ffffff;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
     }
     h1 {
       text-align: center;
       color: #2c3e50;
-      margin-bottom: 40px;
+      font-size: 20px;
+      margin-bottom: 30px;
     }
     h3 {
       color: #2c3e50;
-      margin-top: 40px;
+      font-size: 16px;
+      margin-top: 30px;
     }
     table {
       width: 100%;
       border-collapse: collapse;
-      margin-bottom: 30px;
+      margin-bottom: 25px;
+      font-size: 14px;
     }
     th, td {
       border: 1px solid #ccc;
-      padding: 10px;
+      padding: 8px;
       text-align: left;
       vertical-align: middle;
     }
     th {
       background-color: #ecf0f1;
-      width: 30%;
+      width: 35%;
     }
     input[type="text"],
     input[type="date"],
@@ -47,6 +53,7 @@
       width: 100%;
       padding: 6px;
       box-sizing: border-box;
+      font-size: 14px;
     }
     input[type="radio"] {
       margin-right: 5px;
@@ -54,15 +61,14 @@
     .submit-button {
       background-color: #2980b9;
       color: white;
-      padding: 12px 20px;
+      padding: 10px 15px;
       font-size: 16px;
       border: none;
       border-radius: 5px;
       cursor: pointer;
-      margin-top: 30px;
+      margin-top: 20px;
       display: block;
-      margin-left: auto;
-      margin-right: auto;
+      width: 100%;
     }
     .submit-button:hover {
       background-color: #1e6ea7;
@@ -79,10 +85,7 @@
       <!-- ① 인적사항 -->
       <h3>① 인적사항</h3>
       <table>
-        <tr>
-          <th>성명</th>
-          <td><input type="text" name="name"></td>
-        </tr>
+        <tr><th>성명</th><td><input type="text" name="name"></td></tr>
         <tr>
           <th>성별</th>
           <td>
@@ -91,31 +94,16 @@
             <label><input type="radio" name="gender" value="여성"> 여성</label>
           </td>
         </tr>
-        <tr>
-          <th>생년월일</th>
-          <td><input type="date" name="birth"></td>
-        </tr>
-        <tr>
-          <th>연락처</th>
-          <td><input type="text" name="phone"></td>
-        </tr>
-        <tr>
-          <th>주소</th>
-          <td><input type="text" name="address"></td>
-        </tr>
-        <tr>
-          <th>추천인</th>
-          <td><input type="text" name="referrer"></td>
-        </tr>
+        <tr><th>생년월일</th><td><input type="date" name="birth"></td></tr>
+        <tr><th>연락처</th><td><input type="text" name="phone"></td></tr>
+        <tr><th>주소</th><td><input type="text" name="address"></td></tr>
+        <tr><th>추천인</th><td><input type="text" name="referrer"></td></tr>
       </table>
 
       <!-- ② 회원권 정보 -->
       <h3>② 회원권 정보</h3>
       <table>
-        <tr>
-          <th>회원권 종류</th>
-          <td><input type="text" name="membership_type"></td>
-        </tr>
+        <tr><th>회원권 종류</th><td><input type="text" name="membership_type"></td></tr>
         <tr>
           <th>계약 유형</th>
           <td>
@@ -128,56 +116,26 @@
             </select>
           </td>
         </tr>
-        <tr>
-          <th>선불 기간 (개월)</th>
-          <td><input type="number" name="prepaid_months"></td>
-        </tr>
-        <tr>
-          <th>운동 시작일</th>
-          <td><input type="date" name="start_date"></td>
-        </tr>
-        <tr>
-          <th>계약 금액 (₩)</th>
-          <td><input type="number" name="contract_amount"></td>
-        </tr>
-        <tr>
-          <th>등록비 (₩)</th>
-          <td><input type="number" name="registration_fee" value="20000"></td>
-        </tr>
+        <tr><th>선불 기간 (개월)</th><td><input type="number" name="prepaid_months"></td></tr>
+        <tr><th>운동 시작일</th><td><input type="date" name="start_date"></td></tr>
+        <tr><th>계약 금액 (₩)</th><td><input type="number" name="contract_amount"></td></tr>
+        <tr><th>등록비 (₩)</th><td><input type="number" name="registration_fee" value="20000"></td></tr>
       </table>
 
       <!-- ③ 부가서비스 -->
       <h3>③ 부가서비스</h3>
       <table>
-        <tr>
-          <th>O.T 비용 (₩)</th>
-          <td><input type="number" name="ot_fee"></td>
-        </tr>
-        <tr>
-          <th>기간비 (₩)</th>
-          <td><input type="number" name="period_fee"></td>
-        </tr>
-        <tr>
-          <th>운동복 (₩)</th>
-          <td><input type="number" name="uniform_fee"></td>
-        </tr>
-        <tr>
-          <th>라커비 (₩)</th>
-          <td><input type="number" name="locker_fee"></td>
-        </tr>
-        <tr>
-          <th>참고사항</th>
-          <td><input type="text" name="notes"></td>
-        </tr>
+        <tr><th>O.T 비용 (₩)</th><td><input type="number" name="ot_fee"></td></tr>
+        <tr><th>기간비 (₩)</th><td><input type="number" name="period_fee"></td></tr>
+        <tr><th>운동복 (₩)</th><td><input type="number" name="uniform_fee"></td></tr>
+        <tr><th>라커비 (₩)</th><td><input type="number" name="locker_fee"></td></tr>
+        <tr><th>참고사항</th><td><input type="text" name="notes"></td></tr>
       </table>
 
       <!-- ④ 운동 정보 -->
       <h3>④ 운동 정보</h3>
       <table>
-        <tr>
-          <th>운동 시간대</th>
-          <td><input type="text" name="time"></td>
-        </tr>
+        <tr><th>운동 시간대</th><td><input type="text" name="time"></td></tr>
         <tr>
           <th>운동 목적</th>
           <td>
@@ -204,10 +162,7 @@
             </select>
           </td>
         </tr>
-        <tr>
-          <th>전자 서명 (이름 입력)</th>
-          <td><input type="text" name="signature"></td>
-        </tr>
+        <tr><th>전자 서명 (이름 입력)</th><td><input type="text" name="signature"></td></tr>
       </table>
 
       <button type="submit" class="submit-button">계약서 제출</button>
