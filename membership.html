@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>BODYBOOM 회원 가입 계약서</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- 모바일 대응 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
       font-family: 'Arial', sans-serif;
@@ -47,7 +47,6 @@
       width: 35%;
     }
     input[type="text"],
-    input[type="date"],
     input[type="number"],
     select {
       width: 100%;
@@ -73,15 +72,24 @@
     .submit-button:hover {
       background-color: #1e6ea7;
     }
+
+    /* 생년월일 select 가로 정렬 */
     select[name="birth_year"],
     select[name="birth_month"],
     select[name="birth_day"] {
-      width: 30%;
+      width: 32%;
       display: inline-block;
       margin-right: 2%;
     }
     select[name="birth_day"] {
       margin-right: 0;
+    }
+
+    /* 연락처 3칸 분할 스타일 */
+    .phone-input input {
+      width: auto;
+      display: inline-block;
+      text-align: center;
     }
   </style>
 </head>
@@ -112,7 +120,14 @@
             <select name="birth_day" id="birth_day"><option value="">일</option></select>
           </td>
         </tr>
-        <tr><th>연락처</th><td><input type="text" name="phone"></td></tr>
+        <tr>
+          <th>연락처</th>
+          <td class="phone-input">
+            <input type="text" value="010" readonly size="3"> -
+            <input type="text" name="phone_mid" maxlength="4" size="4"> -
+            <input type="text" name="phone_end" maxlength="4" size="4">
+          </td>
+        </tr>
         <tr><th>주소</th><td><input type="text" name="address"></td></tr>
         <tr><th>추천인</th><td><input type="text" name="referrer"></td></tr>
       </table>
