@@ -10,7 +10,7 @@
       background-color: #f9f9f9;
     }
     .container {
-      max-width: 900px;
+      max-width: 600px;
       margin: 40px auto;
       padding: 20px;
       background-color: #ffffff;
@@ -32,12 +32,13 @@
     }
     th, td {
       border: 1px solid #ccc;
-      padding: 8px;
+      padding: 10px;
       text-align: left;
       vertical-align: middle;
     }
     th {
       background-color: #ecf0f1;
+      width: 30%;
     }
     input[type="text"],
     input[type="date"],
@@ -59,6 +60,9 @@
       border-radius: 5px;
       cursor: pointer;
       margin-top: 30px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
     }
     .submit-button:hover {
       background-color: #1e6ea7;
@@ -78,6 +82,8 @@
         <tr>
           <th>성명</th>
           <td><input type="text" name="name"></td>
+        </tr>
+        <tr>
           <th>성별</th>
           <td>
             <label><input type="radio" name="gender" value="남성"> 남성</label>
@@ -88,16 +94,18 @@
         <tr>
           <th>생년월일</th>
           <td><input type="date" name="birth"></td>
+        </tr>
+        <tr>
           <th>연락처</th>
           <td><input type="text" name="phone"></td>
         </tr>
         <tr>
           <th>주소</th>
-          <td colspan="3"><input type="text" name="address"></td>
+          <td><input type="text" name="address"></td>
         </tr>
         <tr>
           <th>추천인</th>
-          <td colspan="3"><input type="text" name="referrer"></td>
+          <td><input type="text" name="referrer"></td>
         </tr>
       </table>
 
@@ -107,6 +115,8 @@
         <tr>
           <th>회원권 종류</th>
           <td><input type="text" name="membership_type"></td>
+        </tr>
+        <tr>
           <th>계약 유형</th>
           <td>
             <select name="contract_type">
@@ -121,12 +131,16 @@
         <tr>
           <th>선불 기간 (개월)</th>
           <td><input type="number" name="prepaid_months"></td>
+        </tr>
+        <tr>
           <th>운동 시작일</th>
           <td><input type="date" name="start_date"></td>
         </tr>
         <tr>
           <th>계약 금액 (₩)</th>
           <td><input type="number" name="contract_amount"></td>
+        </tr>
+        <tr>
           <th>등록비 (₩)</th>
           <td><input type="number" name="registration_fee" value="20000"></td>
         </tr>
@@ -138,18 +152,22 @@
         <tr>
           <th>O.T 비용 (₩)</th>
           <td><input type="number" name="ot_fee"></td>
+        </tr>
+        <tr>
           <th>기간비 (₩)</th>
           <td><input type="number" name="period_fee"></td>
         </tr>
         <tr>
           <th>운동복 (₩)</th>
           <td><input type="number" name="uniform_fee"></td>
+        </tr>
+        <tr>
           <th>라커비 (₩)</th>
           <td><input type="number" name="locker_fee"></td>
         </tr>
         <tr>
           <th>참고사항</th>
-          <td colspan="3"><input type="text" name="notes"></td>
+          <td><input type="text" name="notes"></td>
         </tr>
       </table>
 
@@ -159,6 +177,8 @@
         <tr>
           <th>운동 시간대</th>
           <td><input type="text" name="time"></td>
+        </tr>
+        <tr>
           <th>운동 목적</th>
           <td>
             <select name="purpose">
@@ -172,7 +192,7 @@
         </tr>
       </table>
 
-      <!-- ⑤ 기타 동의 및 서명 -->
+      <!-- ⑤ 기타 -->
       <h3>⑤ 기타 동의 및 서명</h3>
       <table>
         <tr>
@@ -190,9 +210,7 @@
         </tr>
       </table>
 
-      <div style="text-align: center;">
-        <button type="submit" class="submit-button">계약서 제출</button>
-      </div>
+      <button type="submit" class="submit-button">계약서 제출</button>
 
     </form>
   </div>
