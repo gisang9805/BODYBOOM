@@ -2,91 +2,123 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <title>회원 가입 계약서</title>
+  <title>헬스장 회원가입 계약서</title>
   <style>
-    html, body {
-      height: 100%;
-      margin: 0;
-    }
     body {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      background-color: #222;
-      color: white;
       font-family: Arial, sans-serif;
-    }
-    .container {
-      text-align: center;
-      margin-bottom: 40px;
-    }
-    .title {
-      font-size: 40px;
-      font-weight: bold;
-      margin-bottom: 10px;
-    }
-    .subtitle {
-      font-size: 18px;
-      color: #ccc;
-    }
-    form {
-      background-color: #fff;
-      color: #000;
-      padding: 40px;
-      border-radius: 10px;
-      width: 500px;
-      font-size: 18px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      margin: 40px;
     }
     label {
       display: block;
-      margin-top: 20px;
-      font-weight: bold;
+      margin: 10px 0 4px;
     }
-    input[type="text"],
-    input[type="date"],
-    input[type="tel"] {
+    input, select, textarea {
       width: 100%;
-      padding: 12px;
-      margin-top: 8px;
+      padding: 8px;
+      margin-bottom: 15px;
+    }
+    .section {
+      margin-bottom: 30px;
+    }
+    .submit-button {
+      background-color: #2e86de;
+      color: white;
+      border: none;
+      padding: 10px 20px;
       font-size: 16px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-    }
-    .gender-options {
-      margin-top: 10px;
-    }
-    .gender-options label {
-      margin-right: 20px;
-      font-weight: normal;
-    }
-    .gender-options input {
-      margin-right: 6px;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="title">회원 가입 계약서</div>
-    <div class="subtitle">Membership Agreement</div>
-  </div>
 
-  <form>
-    <label for="name">성명</label>
-    <input type="text" id="name" name="name" required>
+  <h1>회원 가입 계약서</h1>
 
-    <label>성별</label>
-    <div class="gender-options">
-      <label><input type="radio" name="gender" value="남성" required> 남성</label>
-      <label><input type="radio" name="gender" value="여성" required> 여성</label>
+  <form id="contractForm">
+
+    <div class="section">
+      <h3>① 인적사항</h3>
+      <label>성명</label>
+      <input type="text" name="name">
+
+      <label>생년월일</label>
+      <input type="date" name="birth">
+
+      <label>성별</label>
+      <select name="gender">
+        <option value="남성">남성</option>
+        <option value="여성">여성</option>
+      </select>
+
+      <label>연락처</label>
+      <input type="text" name="phone">
+
+      <label>주소</label>
+      <input type="text" name="address">
+
+      <label>추천인</label>
+      <input type="text" name="referrer">
     </div>
 
-    <label for="birth">생년월일</label>
-    <input type="date" id="birth" name="birth" required>
+    <div class="section">
+      <h3>② 회원권 정보</h3>
+      <label>회원권 종류</label>
+      <input type="text" name="membership_type">
 
-    <label for="phone">연락처</label>
-    <input type="tel" id="phone" name="phone" required>
+      <label>계약 유형</label>
+      <select name="contract_type">
+        <option value="개인">개인</option>
+        <option value="재가입">재가입</option>
+        <option value="만기된 회원 재가입">만기된 회원 재가입</option>
+        <option value="업그레이드">업그레이드</option>
+        <option value="양도">양도</option>
+      </select>
+
+      <label>선불 기간 (개월)</label>
+      <input type="number" name="prepaid_months">
+
+      <label>운동 시작일</label>
+      <input type="date" name="start_date">
+
+      <label>계약 금액 (₩)</label>
+      <input type="number" name="contract_amount">
+    </div>
+
+    <div class="section">
+      <h3>③ 부가서비스</h3>
+      <label>O.T 비용</label>
+      <input type="number" name="ot_fee">
+
+      <label>운동복</label>
+      <input type="number" name="uniform_fee">
+
+      <label>라커비</label>
+      <input type="number" name="locker_fee">
+    </div>
+
+    <div class="section">
+      <h3>④ 운동 정보</h3>
+      <label>운동 시간대</label>
+      <input type="text" name="time">
+
+      <label>운동 목적</label>
+      <select name="purpose">
+        <option value="감량">감량</option>
+        <option value="증량">증량</option>
+        <option value="건강">건강</option>
+        <option value="재활">재활</option>
+      </select>
+    </div>
+
+    <div class="section">
+      <label>사진 촬영 및 SNS 업로드 동의</label>
+      <select name="sns_agree">
+        <option value="동의">동의</option>
+        <option value="비동의">비동의</option>
+      </select>
+    </div>
+
+    <button type="submit" class="submit-button">계약서 제출</button>
   </form>
+
 </body>
 </html>
