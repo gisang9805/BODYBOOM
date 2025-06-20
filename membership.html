@@ -2,21 +2,33 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <title>헬스장 회원가입 계약서</title>
+  <title>BODYBOOM 회원 가입 계약서</title>
   <style>
     body {
       font-family: 'Arial', sans-serif;
-      margin: 40px;
+      margin: 0;
       background-color: #f9f9f9;
     }
-    h1, h3 {
+    .container {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 20px;
+      background-color: #ffffff;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h1 {
+      text-align: center;
       color: #2c3e50;
+      margin-bottom: 40px;
+    }
+    h3 {
+      color: #2c3e50;
+      margin-top: 40px;
     }
     table {
       width: 100%;
       border-collapse: collapse;
       margin-bottom: 30px;
-      background-color: white;
     }
     th, td {
       border: 1px solid #ccc;
@@ -39,6 +51,7 @@
       border: none;
       border-radius: 5px;
       cursor: pointer;
+      margin-top: 30px;
     }
     .submit-button:hover {
       background-color: #1e6ea7;
@@ -47,12 +60,12 @@
 </head>
 <body>
 
-  <h1>헬스장 회원가입 계약서</h1>
+  <div class="container">
+    <h1>BODYBOOM 회원 가입 계약서</h1>
 
-  <form id="contractForm">
+    <form id="contractForm">
 
-    <!-- ① 인적사항 -->
-    <div class="section">
+      <!-- ① 인적사항 -->
       <h3>① 인적사항</h3>
       <table>
         <tr>
@@ -81,10 +94,8 @@
           <td colspan="3"><input type="text" name="referrer"></td>
         </tr>
       </table>
-    </div>
 
-    <!-- ② 회원권 정보 -->
-    <div class="section">
+      <!-- ② 회원권 정보 -->
       <h3>② 회원권 정보</h3>
       <table>
         <tr>
@@ -114,10 +125,8 @@
           <td><input type="number" name="registration_fee" value="20000"></td>
         </tr>
       </table>
-    </div>
 
-    <!-- ③ 부가서비스 -->
-    <div class="section">
+      <!-- ③ 부가서비스 -->
       <h3>③ 부가서비스</h3>
       <table>
         <tr>
@@ -137,10 +146,8 @@
           <td colspan="3"><input type="text" name="notes"></td>
         </tr>
       </table>
-    </div>
 
-    <!-- ④ 운동 정보 -->
-    <div class="section">
+      <!-- ④ 운동 정보 -->
       <h3>④ 운동 정보</h3>
       <table>
         <tr>
@@ -158,10 +165,8 @@
           </td>
         </tr>
       </table>
-    </div>
 
-    <!-- ⑤ 기타 -->
-    <div class="section">
+      <!-- ⑤ 기타 동의 및 서명 -->
       <h3>⑤ 기타 동의 및 서명</h3>
       <table>
         <tr>
@@ -178,14 +183,13 @@
           <td><input type="text" name="signature"></td>
         </tr>
       </table>
-    </div>
 
-    <!-- 제출 -->
-    <div class="section" style="text-align: center;">
-      <button type="submit" class="submit-button">계약서 제출</button>
-    </div>
+      <div style="text-align: center;">
+        <button type="submit" class="submit-button">계약서 제출</button>
+      </div>
 
-  </form>
+    </form>
+  </div>
 
 </body>
 </html>
