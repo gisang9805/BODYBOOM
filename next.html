@@ -60,7 +60,6 @@
     birth_day: "생일",
     phone_mid: "연락처",
     phone_end: "연락처",
-    postcode: "우편번호",
     address: "주소",
     detailAddress: "상세주소",
     referrer: "추천인",
@@ -100,8 +99,6 @@
       continue;
     }
 
-    if (key === "postcode") continue;
-
     if (key === "address") continue;
     if (key === "detailAddress") {
       const fullAddress = `${data["address"] || ""} ${data["detailAddress"] || ""}`.trim();
@@ -111,28 +108,37 @@
       continue;
     }
 
-    const moneyKeys = ["contract_amount", "total_amount"];
+    // 운동 시간대 (checkbox로 복수 선택)
+    if (key === "time") {
+      const times = Array.isArray(data[key]) ? data[key] : [data[key]];
+      const row = document.createElement('tr');
+      row.innerHTML = `<th>운동 시간대</th><td>${times.join(', ')}</td>`;
+      table.appendChild(row);
+      continue;
+    }
 
+    // 회원권 기간에 개월 붙이기
+    if (key === "prepaid_months") {
+      const row = document.createElement('tr');
+      row.innerHTML = `<th>${labels[key]}</th><td>${data[key]}개월</td>`;
+      table.appendChild(row);
+      continue;
+    }
+
+    // 가격 항목에 '원' 붙이기
+    if (["contract_amount", "total_amount"].includes(key)) {
+      const row = document.createElement('tr');
+      row.innerHTML = `<th>${labels[key]}</th><td>${data[key]}원</td>`;
+      table.appendChild(row);
+      continue;
+    }
+
+    // 기본 항목 출력
     const row = document.createElement('tr');
     const labelCell = document.createElement('th');
     labelCell.textContent = labels[key] || key;
     const valueCell = document.createElement('td');
-
-    if (moneyKeys.includes(key)) {
-      valueCell.textContent = data[key] ? `${data[key]}원` : "";
-    } else if (key === "uniform_use" || key === "locker_use") {
-      const months = Number(data["prepaid_months"] || 0);
-      const fee = data[key] === "O" ? months * 10000 : 0;
-      valueCell.textContent = data[key] === "O" ? `O (${fee.toLocaleString()}원)` : "X";
-    } else if (key === "registration_fee_check") {
-      const fee = data[key] === "X" ? 20000 : 0;
-      valueCell.textContent = data[key] === "X" ? `X (${fee.toLocaleString()}원)` : "O (0원)";
-    } else if (key === "prepaid_months") {
-      valueCell.textContent = `${data[key]}개월`;
-    } else {
-      valueCell.textContent = data[key];
-    }
-
+    valueCell.textContent = data[key];
     row.appendChild(labelCell);
     row.appendChild(valueCell);
     table.appendChild(row);
