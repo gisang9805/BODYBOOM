@@ -111,12 +111,31 @@
       continue;
     }
 
-    // 일반 항목 출력
+    // 금액 표시가 필요한 항목들
+    const moneyKeys = ["contract_amount", "total_amount"];
+    const perMonthFeeKeys = {
+      uniform_use: "운동복 사용",
+      locker_use: "락커 사용"
+    };
+
     const row = document.createElement('tr');
     const labelCell = document.createElement('th');
     labelCell.textContent = labels[key] || key;
     const valueCell = document.createElement('td');
-    valueCell.textContent = data[key];
+
+    if (moneyKeys.includes(key)) {
+      valueCell.textContent = data[key] ? `${data[key]}원` : "";
+    } else if (key === "uniform_use" || key === "locker_use") {
+      const months = Number(data["prepaid_months"] || 0);
+      const fee = data[key] === "O" ? months * 10000 : 0;
+      valueCell.textContent = data[key] === "O" ? `O (${fee.toLocaleString()}원)` : "X";
+    } else if (key === "registration_fee_check") {
+      const fee = data[key] === "X" ? 20000 : 0;
+      valueCell.textContent = data[key] === "X" ? `X (${fee.toLocaleString()}원)` : "O (0원)";
+    } else {
+      valueCell.textContent = data[key];
+    }
+
     row.appendChild(labelCell);
     row.appendChild(valueCell);
     table.appendChild(row);
