@@ -60,15 +60,16 @@
     birth_day: "생일",
     phone_mid: "연락처",
     phone_end: "연락처",
-    //address: "주소",
-    detailAddress: "주소",
+    postcode: "우편번호",
+    address: "주소",
+    detailAddress: "상세주소",
     referrer: "추천인",
     membership_type: "회원권 종류",
     prepaid_months: "회원권 기간",
     contract_amount: "계약 금액",
     uniform_use: "운동복 사용",
     locker_use: "락커 사용",
-    registration_fee_check: "리뷰 작성 여부",
+    registration_fee_check: "등록비 여부",
     total_amount: "총금액",
     time: "운동 시간대",
     purpose: "운동 목적",
@@ -77,7 +78,6 @@
   };
 
   for (const key in data) {
-    // 생년월일 조합
     if (key === "birth_year") continue;
     if (key === "birth_month") continue;
     if (key === "birth_day") {
@@ -91,7 +91,6 @@
       continue;
     }
 
-    // 전화번호 조합
     if (key === "phone_mid") continue;
     if (key === "phone_end") {
       const phone = `010-${data["phone_mid"] || ""}-${data["phone_end"] || ""}`;
@@ -101,7 +100,8 @@
       continue;
     }
 
-    // 주소 + 상세주소 조합
+    if (key === "postcode") continue;
+
     if (key === "address") continue;
     if (key === "detailAddress") {
       const fullAddress = `${data["address"] || ""} ${data["detailAddress"] || ""}`.trim();
@@ -111,12 +111,7 @@
       continue;
     }
 
-    // 금액 표시가 필요한 항목들
     const moneyKeys = ["contract_amount", "total_amount"];
-    const perMonthFeeKeys = {
-      uniform_use: "운동복 사용",
-      locker_use: "락커 사용"
-    };
 
     const row = document.createElement('tr');
     const labelCell = document.createElement('th');
@@ -132,6 +127,8 @@
     } else if (key === "registration_fee_check") {
       const fee = data[key] === "X" ? 20000 : 0;
       valueCell.textContent = data[key] === "X" ? `X (${fee.toLocaleString()}원)` : "O (0원)";
+    } else if (key === "prepaid_months") {
+      valueCell.textContent = `${data[key]}개월`;
     } else {
       valueCell.textContent = data[key];
     }
