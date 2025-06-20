@@ -48,6 +48,7 @@
     }
     input[type="text"],
     input[type="number"],
+    input[type="date"],
     select {
       width: 100%;
       padding: 6px;
@@ -103,7 +104,7 @@
       <!-- ① 인적사항 -->
       <h3>① 인적사항</h3>
       <table>
-        <tr><th>성명</th><td><input type="text" name="name"></td></tr>
+        <tr><th>성명</th><td><input type="text" name="name" maxlength="20"></td></tr>
         <tr>
           <th>성별</th>
           <td>
@@ -148,7 +149,7 @@
             </select>
           </td>
         </tr>
-        <tr><th>선불 기간 (개월)</th><td><input type="number" name="prepaid_months"></td></tr>
+        <tr><th>선불 기간 (개월)</th><td><input type="number" name="prepaid_months" maxlength="2"></td></tr>
         <tr><th>운동 시작일</th><td><input type="date" name="start_date"></td></tr>
         <tr><th>계약 금액 (₩)</th><td><input type="number" name="contract_amount"></td></tr>
         <tr><th>등록비 (₩)</th><td><input type="number" name="registration_fee" value="20000"></td></tr>
@@ -202,7 +203,7 @@
     </form>
   </div>
 
-  <!-- 생년월일 셀렉트 옵션 채우기 -->
+  <!-- 생년월일 셀렉트 초기화 -->
   <script>
     const yearSelect = document.getElementById("birth_year");
     const monthSelect = document.getElementById("birth_month");
@@ -226,6 +227,30 @@
       opt.value = opt.text = d;
       daySelect.add(opt);
     }
+  </script>
+
+  <!-- 입력 자동 포커스 이동 -->
+  <script>
+    const formElements = Array.from(document.querySelectorAll(
+      'form#contractForm input:not([type=radio]):not([readonly]), form#contractForm select'
+    ));
+
+    formElements.forEach((el, index) => {
+      el.addEventListener('input', () => {
+        if (el.hasAttribute('maxlength') && el.value.length >= el.maxLength) {
+          const next = formElements[index + 1];
+          if (next) next.focus();
+        }
+      });
+
+      el.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          const next = formElements[index + 1];
+          if (next) next.focus();
+        }
+      });
+    });
   </script>
 
 </body>
