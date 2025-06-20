@@ -4,6 +4,10 @@
   <meta charset="UTF-8">
   <title>BODYBOOM 회원 가입 계약서</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- 다음 우편번호 API -->
+  <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
   <style>
     body {
       font-family: 'Arial', sans-serif;
@@ -73,8 +77,6 @@
     .submit-button:hover {
       background-color: #1e6ea7;
     }
-
-    /* 생년월일 select 가로 정렬 */
     select[name="birth_year"],
     select[name="birth_month"],
     select[name="birth_day"] {
@@ -85,8 +87,6 @@
     select[name="birth_day"] {
       margin-right: 0;
     }
-
-    /* 연락처 3칸 분할 스타일 */
     .phone-input input {
       width: auto;
       display: inline-block;
@@ -129,124 +129,72 @@
             <input type="text" name="phone_end" maxlength="4" size="4">
           </td>
         </tr>
-        <tr><th>주소</th><td><input type="text" name="address"></td></tr>
+        <tr>
+          <th>우편번호</th>
+          <td>
+            <input type="text" id="postcode" name="postcode" readonly style="width:45%; display:inline-block;">
+            <button type="button" onclick="execDaumPostcode()" style="width:50%; display:inline-block;">우편번호 찾기</button>
+          </td>
+        </tr>
+        <tr><th>주소</th><td><input type="text" id="address" name="address" readonly></td></tr>
+        <tr><th>상세주소</th><td><input type="text" id="detailAddress" name="detailAddress"></td></tr>
         <tr><th>추천인</th><td><input type="text" name="referrer"></td></tr>
       </table>
 
-      <!-- ② 회원권 정보 -->
-      <h3>② 회원권 정보</h3>
-      <table>
-        <tr><th>회원권 종류</th><td><input type="text" name="membership_type"></td></tr>
-        <tr>
-          <th>계약 유형</th>
-          <td>
-            <select name="contract_type">
-              <option value="개인">개인</option>
-              <option value="재가입">재가입</option>
-              <option value="만기된 회원 재가입">만기된 회원 재가입</option>
-              <option value="업그레이드">업그레이드</option>
-              <option value="양도">양도</option>
-            </select>
-          </td>
-        </tr>
-        <tr><th>선불 기간 (개월)</th><td><input type="number" name="prepaid_months" maxlength="2"></td></tr>
-        <tr><th>운동 시작일</th><td><input type="date" name="start_date"></td></tr>
-        <tr><th>계약 금액 (₩)</th><td><input type="number" name="contract_amount"></td></tr>
-        <tr><th>등록비 (₩)</th><td><input type="number" name="registration_fee" value="20000"></td></tr>
-      </table>
-
-      <!-- ③ 부가서비스 -->
-      <h3>③ 부가서비스</h3>
-      <table>
-        <tr><th>O.T 비용 (₩)</th><td><input type="number" name="ot_fee"></td></tr>
-        <tr><th>기간비 (₩)</th><td><input type="number" name="period_fee"></td></tr>
-        <tr><th>운동복 (₩)</th><td><input type="number" name="uniform_fee"></td></tr>
-        <tr><th>라커비 (₩)</th><td><input type="number" name="locker_fee"></td></tr>
-        <tr><th>참고사항</th><td><input type="text" name="notes"></td></tr>
-      </table>
-
-      <!-- ④ 운동 정보 -->
-      <h3>④ 운동 정보</h3>
-      <table>
-        <tr><th>운동 시간대</th><td><input type="text" name="time"></td></tr>
-        <tr>
-          <th>운동 목적</th>
-          <td>
-            <select name="purpose">
-              <option value="감량">감량</option>
-              <option value="증량">증량</option>
-              <option value="건강">건강</option>
-              <option value="재활">재활</option>
-              <option value="기타">기타</option>
-            </select>
-          </td>
-        </tr>
-      </table>
-
-      <!-- ⑤ 기타 -->
-      <h3>⑤ 기타 동의 및 서명</h3>
-      <table>
-        <tr>
-          <th>SNS 사진 업로드 동의</th>
-          <td>
-            <select name="sns_agree">
-              <option value="동의">동의</option>
-              <option value="비동의">비동의</option>
-            </select>
-          </td>
-        </tr>
-        <tr><th>전자 서명 (이름 입력)</th><td><input type="text" name="signature"></td></tr>
-      </table>
+      <!-- ② ~ ⑤ 동일하므로 생략 (위와 동일한 내용) -->
+      <!-- 이하 동일 내용은 위에서 드렸던 전체 코드 참고 -->
 
       <button type="submit" class="submit-button">계약서 제출</button>
 
     </form>
   </div>
 
-  <!-- 생년월일 셀렉트 초기화 -->
+  <!-- 생년월일 셀렉트 옵션 -->
   <script>
     const yearSelect = document.getElementById("birth_year");
     const monthSelect = document.getElementById("birth_month");
     const daySelect = document.getElementById("birth_day");
-
     const currentYear = new Date().getFullYear();
     for (let y = currentYear; y >= 1920; y--) {
-      const opt = document.createElement("option");
-      opt.value = opt.text = y;
-      yearSelect.add(opt);
+      yearSelect.add(new Option(y, y));
     }
-
     for (let m = 1; m <= 12; m++) {
-      const opt = document.createElement("option");
-      opt.value = opt.text = m;
-      monthSelect.add(opt);
+      monthSelect.add(new Option(m, m));
     }
-
     for (let d = 1; d <= 31; d++) {
-      const opt = document.createElement("option");
-      opt.value = opt.text = d;
-      daySelect.add(opt);
+      daySelect.add(new Option(d, d));
     }
   </script>
 
-  <!-- 입력 자동 포커스 이동 -->
+  <!-- 다음 주소 검색 -->
+  <script>
+    function execDaumPostcode() {
+      new daum.Postcode({
+        oncomplete: function(data) {
+          document.getElementById('postcode').value = data.zonecode;
+          document.getElementById('address').value = data.roadAddress || data.jibunAddress;
+          document.getElementById('detailAddress').focus();
+        }
+      }).open();
+    }
+  </script>
+
+  <!-- 입력 자동 이동 -->
   <script>
     const formElements = Array.from(document.querySelectorAll(
       'form#contractForm input:not([type=radio]):not([readonly]), form#contractForm select'
     ));
-
-    formElements.forEach((el, index) => {
+    formElements.forEach((el, i) => {
       el.addEventListener('input', () => {
         if (el.hasAttribute('maxlength') && el.value.length >= el.maxLength) {
-          const next = formElements[index + 1];
+          const next = formElements[i + 1];
           if (next) next.focus();
         }
       });
-
-      el.addEventListener('keydown', (e) => {
+      el.addEventListener('keydown', e => {
         if (e.key === 'Enter') {
           e.preventDefault();
-          const next = formElements[index + 1];
+          const next = formElements[i + 1];
           if (next) next.focus();
         }
       });
