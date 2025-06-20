@@ -78,7 +78,21 @@
   };
 
   for (const key in data) {
-    // 전화번호는 조합해서 한 줄로 표시
+    // 생년월일 조합
+    if (key === "birth_year") continue;
+    if (key === "birth_month") continue;
+    if (key === "birth_day") {
+      const yy = String(data["birth_year"]).slice(2).padStart(2, '0');
+      const mm = String(data["birth_month"]).padStart(2, '0');
+      const dd = String(data["birth_day"]).padStart(2, '0');
+      const birth = `${yy}${mm}${dd}`;
+      const row = document.createElement('tr');
+      row.innerHTML = `<th>생년월일</th><td>${birth}</td>`;
+      table.appendChild(row);
+      continue;
+    }
+
+    // 전화번호 조합
     if (key === "phone_mid") continue;
     if (key === "phone_end") {
       const phone = `010-${data["phone_mid"] || ""}-${data["phone_end"] || ""}`;
@@ -88,6 +102,7 @@
       continue;
     }
 
+    // 일반 항목 출력
     const row = document.createElement('tr');
     const labelCell = document.createElement('th');
     labelCell.textContent = labels[key] || key;
@@ -98,5 +113,6 @@
     table.appendChild(row);
   }
 </script>
+  
 </body>
 </html>
