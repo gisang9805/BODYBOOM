@@ -171,7 +171,7 @@
           </td>
         </tr>
         <tr><th>운동 시작일</th><td><input type="date" name="start_date"></td></tr>
-        <tr><th>계약 금액 (₩)</th><td><input type="number" name="contract_amount"></td></tr>
+        <tr><th>계약 금액 (₩)</th><td><input type="text" name="contract_amount" readonly></td></tr>
         <tr><th>등록비 (₩)</th><td><input type="number" name="registration_fee" value="20000"></td></tr>
       </table>
 
@@ -264,6 +264,46 @@
         }
       });
     });
+  </script>
+
+  <!-- 계약 금액 자동 계산 -->
+  <script>
+    const membershipTypeInputs = document.querySelectorAll('input[name="membership_type"]');
+    const prepaidSelect = document.querySelector('select[name="prepaid_months"]');
+    const contractAmountInput = document.querySelector('input[name="contract_amount"]');
+
+    function updateContractAmount() {
+      const type = document.querySelector('input[name="membership_type"]:checked')?.value;
+      const months = prepaidSelect.value;
+      let price = "";
+
+      const priceMap = {
+        "헬스": {
+          "1": 90000,
+          "3": 240000,
+          "6": 450000,
+          "12": 840000
+        },
+        "헬스+스피닝": {
+          "1": 120000,
+          "3": 330000,
+          "6": 600000,
+          "12": 1100000
+        }
+      };
+
+      if (type && months && priceMap[type] && priceMap[type][months]) {
+        price = priceMap[type][months];
+      }
+
+      contractAmountInput.value = price ? price.toLocaleString() : "";
+    }
+
+    membershipTypeInputs.forEach(input => {
+      input.addEventListener("change", updateContractAmount);
+    });
+
+    prepaidSelect.addEventListener("change", updateContractAmount);
   </script>
 
 </body>
