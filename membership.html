@@ -172,12 +172,28 @@
         </tr>
         <tr><th>운동 시작일</th><td><input type="date" name="start_date"></td></tr>
         <tr><th>계약 금액 (₩)</th><td><input type="text" name="contract_amount" readonly></td></tr>
-        <tr><th>운동복 (₩)</th><td><input type="number" name="uniform_fee"></td></tr>
-        <tr><th>락커 (₩)</th><td><input type="number" name="locker_fee"></td></tr>
+        <tr>
+          <th>운동복 (₩)</th>
+          <td>
+            <label><input type="radio" name="uniform_use" value="O"> O</label>
+            <label><input type="radio" name="uniform_use" value="X"> X</label>
+            &nbsp;&nbsp;
+            <input type="text" name="uniform_fee" readonly>
+          </td>
+        </tr>
+        <tr>
+          <th>락커 (₩)</th>
+          <td>
+            <label><input type="radio" name="locker_use" value="O"> O</label>
+            <label><input type="radio" name="locker_use" value="X"> X</label>
+            &nbsp;&nbsp;
+            <input type="text" name="locker_fee" readonly>
+          </td>
+        </tr>
         <tr><th>등록비 (₩)</th><td><input type="number" name="registration_fee" value="20000"></td></tr>
         <tr><th>총금액 (₩)</th><td><input type="number" name="period_fee"></td></tr>
       </table>
-      
+
       <!-- ④ 운동 정보 -->
       <h3>④ 운동 정보</h3>
       <table>
@@ -261,45 +277,39 @@
     });
   </script>
 
-  <!-- 계약 금액 자동 계산 -->
+  <!-- 계약 금액 자동 계산 + 운동복/락커 계산 -->
   <script>
     const membershipTypeInputs = document.querySelectorAll('input[name="membership_type"]');
     const prepaidSelect = document.querySelector('select[name="prepaid_months"]');
     const contractAmountInput = document.querySelector('input[name="contract_amount"]');
+    const uniformInputs = document.querySelectorAll('input[name="uniform_use"]');
+    const lockerInputs = document.querySelectorAll('input[name="locker_use"]');
+    const uniformFee = document.querySelector('input[name="uniform_fee"]');
+    const lockerFee = document.querySelector('input[name="locker_fee"]');
 
     function updateContractAmount() {
       const type = document.querySelector('input[name="membership_type"]:checked')?.value;
       const months = prepaidSelect.value;
-      let price = "";
-
       const priceMap = {
-        "헬스": {
-          "1": 90000,
-          "3": 240000,
-          "6": 450000,
-          "12": 840000
-        },
-        "헬스+스피닝": {
-          "1": 120000,
-          "3": 330000,
-          "6": 600000,
-          "12": 1100000
-        }
+        "헬스": {"1": 90000, "3": 240000, "6": 450000, "12": 840000},
+        "헬스+스피닝": {"1": 120000, "3": 330000, "6": 600000, "12": 1100000}
       };
-
-      if (type && months && priceMap[type] && priceMap[type][months]) {
-        price = priceMap[type][months];
-      }
-
-      contractAmountInput.value = price ? price.toLocaleString() : "";
+      contractAmountInput.value = (type && months && priceMap[type]?.[months]) ? priceMap[type][months].toLocaleString() : "";
+      updateExtraFees();
     }
 
-    membershipTypeInputs.forEach(input => {
-      input.addEventListener("change", updateContractAmount);
-    });
+    function updateExtraFees() {
+      const months = parseInt(prepaidSelect.value) || 0;
+      const uniformSelected = document.querySelector('input[name="uniform_use"]:checked')?.value;
+      uniformFee.value = (uniformSelected === 'O') ? (months * 10000).toLocaleString() : '';
+      const lockerSelected = document.querySelector('input[name="locker_use"]:checked')?.value;
+      lockerFee.value = (lockerSelected === 'O') ? (months * 10000).toLocaleString() : '';
+    }
 
+    membershipTypeInputs.forEach(input => input.addEventListener("change", updateContractAmount));
     prepaidSelect.addEventListener("change", updateContractAmount);
+    uniformInputs.forEach(input => input.addEventListener("change", updateExtraFees));
+    lockerInputs.forEach(input => input.addEventListener("change", updateExtraFees));
   </script>
-
 </body>
 </html>
