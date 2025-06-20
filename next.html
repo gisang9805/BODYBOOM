@@ -7,112 +7,81 @@
   <style>
     body {
       font-family: 'Arial', sans-serif;
-      margin: 0;
+      background-color: #f7f7f7;
       padding: 20px;
-      background-color: #f2f2f2;
     }
-    .container {
-      max-width: 700px;
+    .summary-container {
+      max-width: 600px;
       margin: 0 auto;
       background: #fff;
       padding: 20px;
       border-radius: 6px;
-      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
     h2 {
       text-align: center;
-      margin-bottom: 30px;
-      color: #2c3e50;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
       margin-bottom: 20px;
     }
-    th, td {
-      padding: 10px;
-      text-align: left;
-      border: 1px solid #ccc;
+    p {
+      margin: 10px 0;
+      line-height: 1.5;
     }
-    th {
-      background-color: #ecf0f1;
-      width: 35%;
+    strong {
+      display: inline-block;
+      width: 120px;
+      color: #333;
     }
   </style>
 </head>
 <body>
-<div class="container">
-  <h2>제출된 계약서 정보 요약</h2>
-  <table id="summaryTable">
-    <!-- 데이터가 JavaScript로 채워짐 -->
-  </table>
-</div>
+  <div class="summary-container" id="summary">
+    <!-- JavaScript가 채움 -->
+  </div>
 
-<script>
-  const data = JSON.parse(localStorage.getItem('contractData') || '{}');
-  const table = document.getElementById('summaryTable');
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const summaryContainer = document.getElementById("summary");
+      const formData = JSON.parse(sessionStorage.getItem("contractFormData"));
 
-  const labels = {
-    name: "성명",
-    gender: "성별",
-    birth_year: "생년",
-    birth_month: "생월",
-    birth_day: "생일",
-    phone_mid: "연락처",
-    phone_end: "연락처",
-    postcode: "우편번호",
-    address: "주소",
-    detailAddress: "상세주소",
-    referrer: "추천인",
-    membership_type: "회원권 종류",
-    prepaid_months: "회원권 기간",
-    contract_amount: "계약 금액",
-    uniform_use: "운동복 사용",
-    locker_use: "락커 사용",
-    registration_fee_check: "등록비 여부",
-    total_amount: "총금액",
-    time: "운동 시간대",
-    purpose: "운동 목적",
-    sns_agree: "SNS 동의",
-    signature: "전자서명"
-  };
+      if (formData) {
+        // 생년월일 6자리 조합
+        const fullBirth = `${formData.birth_year}${String(formData.birth_month).padStart(2, '0')}${String(formData.birth_day).padStart(2, '0')}`;
 
-  for (const key in data) {
-    // 생년월일 조합
-    if (key === "birth_year") continue;
-    if (key === "birth_month") continue;
-    if (key === "birth_day") {
-      const yy = String(data["birth_year"]).slice(2).padStart(2, '0');
-      const mm = String(data["birth_month"]).padStart(2, '0');
-      const dd = String(data["birth_day"]).padStart(2, '0');
-      const birth = `${yy}${mm}${dd}`;
-      const row = document.createElement('tr');
-      row.innerHTML = `<th>생년월일</th><td>${birth}</td>`;
-      table.appendChild(row);
-      continue;
-    }
+        // 연락처
+        const fullPhone = `010-${formData.phone_mid}-${formData.phone_end}`;
 
-    // 전화번호 조합
-    if (key === "phone_mid") continue;
-    if (key === "phone_end") {
-      const phone = `010-${data["phone_mid"] || ""}-${data["phone_end"] || ""}`;
-      const row = document.createElement('tr');
-      row.innerHTML = `<th>연락처</th><td>${phone}</td>`;
-      table.appendChild(row);
-      continue;
-    }
+        // 주소 + 상세주소
+        const fullAddress = formData.address + (formData.detailAddress ? ' ' + formData.detailAddress : '');
 
-    // 일반 항목 출력
-    const row = document.createElement('tr');
-    const labelCell = document.createElement('th');
-    labelCell.textContent = labels[key] || key;
-    const valueCell = document.createElement('td');
-    valueCell.textContent = data[key];
-    row.appendChild(labelCell);
-    row.appendChild(valueCell);
-    table.appendChild(row);
-  }
-</script>
-  
+        // 총금액 콤마 표시
+        const formattedTotal = Number(formData.total_amount?.replace(/,/g, '') || 0).toLocaleString();
+
+        summaryContainer.innerHTML = `
+          <h2>제출된 계약서 요약</h2>
+          <p><strong>성명:</strong> ${formData.name}</p>
+          <p><strong>성별:</strong> ${formData.gender}</p>
+          <p><strong>생년월일:</strong> ${fullBirth}</p>
+          <p><strong>연락처:</strong> ${fullPhone}</p>
+          <p><strong>주소:</strong> ${fullAddress}</p>
+          <p><strong>추천인:</strong> ${formData.referrer}</p>
+
+          <p><strong>회원권:</strong> ${formData.membership_type}</p>
+          <p><strong>기간:</strong> ${formData.prepaid_months}개월</p>
+          <p><strong>계약금액:</strong> ${formData.contract_amount}원</p>
+          <p><strong>운동복:</strong> ${formData.uniform_use}</p>
+          <p><strong>락커:</strong> ${formData.locker_use}</p>
+          <p><strong>등록비:</strong> ${formData.registration_fee_check}</p>
+          <p><strong>총금액:</strong> ${formattedTotal}원</p>
+
+          <p><strong>운동시간대:</strong> ${formData.time}</p>
+          <p><strong>운동목적:</strong> ${formData.purpose}</p>
+
+          <p><strong>SNS 동의:</strong> ${formData.sns_agree}</p>
+        `;
+      } else {
+        summaryContainer.innerHTML = `<p>저장된 계약 정보가 없습니다.</p>`;
+      }
+    });
+  </script>
 </body>
 </html>
