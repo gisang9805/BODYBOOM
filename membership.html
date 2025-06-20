@@ -200,9 +200,9 @@
     <table>
       <th>운동 시간대</th>
     <td>
-      <label><input type="radio" name="time" value="오전"> 오전</label>
+      <label><input type="checkbox" name="time" value="오전"> 오전</label>
       &nbsp;&nbsp;
-      <label><input type="radio" name="time" value="오후"> 오후</label>
+      <label><input type="checkbox" name="time" value="오후"> 오후</label>
     </td>
       <tr>
         <th>운동 목적</th>
@@ -296,9 +296,19 @@
     const form = document.getElementById('contractForm');
     const formData = new FormData(form);
     const data = {};
-    formData.forEach((value, key) => {
+
+    for (const [key, value] of formData.entries()) {
+    // 운동 시간대 체크박스는 여러 개 선택 가능
+    if (key === "time") {
+      if (!data[key]) data[key] = [];
+      data[key].push(value);
+    } else {
       data[key] = value;
-    });
+    }
+    };
+   // formData.forEach((value, key) => {
+    //  data[key] = value;
+ //   });
     localStorage.setItem('contractData', JSON.stringify(data));
     window.location.href = 'next.html'; // 요약 페이지로 이동
   }
