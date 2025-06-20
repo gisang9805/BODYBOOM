@@ -1,1 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>계약서 요약</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f2f2f2;
+    }
+    .container {
+      max-width: 700px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 6px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #2c3e50;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+    th, td {
+      padding: 10px;
+      text-align: left;
+      border: 1px solid #ccc;
+    }
+    th {
+      background-color: #ecf0f1;
+      width: 35%;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h2>제출된 계약서 정보 요약</h2>
+  <table id="summaryTable">
+    <!-- 데이터가 JavaScript로 채워짐 -->
+  </table>
+</div>
 
+<script>
+  const data = JSON.parse(localStorage.getItem('contractData') || '{}');
+  const table = document.getElementById('summaryTable');
+
+  // 항목별 보기 좋은 이름 매핑
+  const labels = {
+    name: "성명",
+    gender: "성별",
+    birth_year: "생년",
+    birth_month: "생월",
+    birth_day: "생일",
+    phone_mid: "연락처 (중간)",
+    phone_end: "연락처 (끝)",
+    postcode: "우편번호",
+    address: "주소",
+    detailAddress: "상세주소",
+    referrer: "추천인",
+    membership_type: "회원권 종류",
+    prepaid_months: "회원권 기간",
+    contract_amount: "계약 금액",
+    uniform_use: "운동복 사용",
+    locker_use: "락커 사용",
+    registration_fee_check: "등록비 여부",
+    total_amount: "총금액",
+    time: "운동 시간대",
+    purpose: "운동 목적",
+    sns_agree: "SNS 동의",
+    signature: "전자서명"
+  };
+
+  for (const key in data) {
+    const row = document.createElement('tr');
+    const labelCell = document.createElement('th');
+    labelCell.textContent = labels[key] || key;
+    const valueCell = document.createElement('td');
+    valueCell.textContent = data[key];
+    row.appendChild(labelCell);
+    row.appendChild(valueCell);
+    table.appendChild(row);
+  }
+</script>
+</body>
+</html>
