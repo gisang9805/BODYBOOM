@@ -289,6 +289,12 @@
   membershipTypeInputs.forEach(el => el.addEventListener('change', updateAllPrices));
   prepaidSelect.addEventListener('change', updateAllPrices);
   [...uniformRadios, ...lockerRadios, ...regRadios].forEach(el => el.addEventListener('change', updateAllPrices));
+
+  // 👉 제출 시 페이지 이동
+  document.getElementById("contractForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+    window.location.href = "next.html";
+  });
 </script>
 </body>
 </html>
