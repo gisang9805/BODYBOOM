@@ -59,6 +59,9 @@
     input[type="radio"] {
       margin-right: 5px;
     }
+    input[readonly] {
+      background-color: #f0f0f0;
+    }
     .submit-button {
       background-color: #2980b9;
       color: white;
@@ -74,211 +77,146 @@
     .submit-button:hover {
       background-color: #1e6ea7;
     }
-    select[name="birth_year"],
-    select[name="birth_month"],
-    select[name="birth_day"] {
-      width: 30%;
-      display: inline-block;
-      margin-right: 2%;
-    }
-    select[name="birth_day"] {
-      margin-right: 0;
-    }
-    .phone-input input {
-      width: auto;
-      display: inline-block;
-      text-align: center;
-    }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>BODYBOOM 회원 가입 계약서</h1>
-    <form id="contractForm">
-      <!-- 인적사항 -->
-      <h3>① 인적사항</h3>
-      <table>
-        <!-- (생략: 인적사항 테이블은 기존 그대로 유지됨) -->
-      </table>
+<div class="container">
+  <h1>BODYBOOM 회원 가입 계약서</h1>
+  <form id="contractForm">
+    <h3>② 회원권 정보</h3>
+    <table>
+      <tr>
+        <th>회원권 종류</th>
+        <td>
+          <label><input type="radio" name="membership_type" value="헬스"> 헬스</label>
+          <label><input type="radio" name="membership_type" value="헬스+스피닝"> 헬스+스피닝</label>
+        </td>
+      </tr>
+      <tr>
+        <th>선불 기간</th>
+        <td>
+          <select name="prepaid_months" id="prepaid_months">
+            <option value="">선택</option>
+            <option value="1">1개월</option>
+            <option value="3">3개월</option>
+            <option value="6">6개월</option>
+            <option value="12">12개월</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <th>계약 금액 (₩)</th>
+        <td><input type="text" name="contract_amount" id="contract_amount" readonly></td>
+      </tr>
+      <tr>
+        <th>운동복 (₩)</th>
+        <td>
+          <label><input type="radio" name="uniform" value="O">O</label>
+          <label><input type="radio" name="uniform" value="X" checked>X</label>
+          <input type="text" name="uniform_fee" id="uniform_fee" readonly>
+        </td>
+      </tr>
+      <tr>
+        <th>락커 (₩)</th>
+        <td>
+          <label><input type="radio" name="locker" value="O">O</label>
+          <label><input type="radio" name="locker" value="X" checked>X</label>
+          <input type="text" name="locker_fee" id="locker_fee" readonly>
+        </td>
+      </tr>
+      <tr>
+        <th>등록비 (₩)</th>
+        <td>
+          <label><input type="radio" name="registration" value="O" checked>O</label>
+          <label><input type="radio" name="registration" value="X">X</label>
+          <input type="text" name="registration_fee" id="registration_fee" readonly>
+        </td>
+      </tr>
+      <tr>
+        <th>총금액 (₩)</th>
+        <td><input type="text" name="total_fee" id="total_fee" readonly></td>
+      </tr>
+    </table>
+    <button type="submit" class="submit-button">계약서 제출</button>
+  </form>
+</div>
 
-      <!-- 회원권 정보 -->
-      <h3>② 회원권 정보</h3>
-      <table>
-        <tr>
-          <th>회원권 종류</th>
-          <td>
-            <label><input type="radio" name="membership_type" value="헬스"> 헬스</label>
-            <label><input type="radio" name="membership_type" value="헬스+스피닝"> 헬스+스피닝</label>
-          </td>
-        </tr>
-        <tr>
-          <th>계약 유형</th>
-          <td>
-            <select name="contract_type">
-              <option value="신규">신규</option>
-              <option value="재가입">재가입</option>
-              <option value="만기된 회원 재가입">만기된 회원 재가입</option>
-              <option value="업그레이드">업그레이드</option>
-              <option value="양도">양도</option>
-            </select>
-          </td>
-        </tr>
-        <tr>
-          <th>선불 기간</th>
-          <td>
-            <select name="prepaid_months" id="prepaid_months">
-              <option value="">선택</option>
-              <option value="1">1개월</option>
-              <option value="3">3개월</option>
-              <option value="6">6개월</option>
-              <option value="12">12개월</option>
-            </select>
-          </td>
-        </tr>
-        <tr><th>운동 시작일</th><td><input type="date" name="start_date"></td></tr>
-        <tr><th>계약 금액 (₩)</th><td><input type="text" name="contract_amount" readonly></td></tr>
-        <tr>
-          <th>운동복</th>
-          <td>
-            <label><input type="radio" name="uniform" value="O">O</label>
-            <label><input type="radio" name="uniform" value="X">X</label>
-            <input type="text" id="uniform_fee" name="uniform_fee" readonly>
-          </td>
-        </tr>
-        <tr>
-          <th>락커</th>
-          <td>
-            <label><input type="radio" name="locker" value="O">O</label>
-            <label><input type="radio" name="locker" value="X">X</label>
-            <input type="text" id="locker_fee" name="locker_fee" readonly>
-          </td>
-        </tr>
-        <tr>
-          <th>등록비</th>
-          <td>
-            <label><input type="radio" name="regist" value="O">O</label>
-            <label><input type="radio" name="regist" value="X">X</label>
-            <input type="text" id="registration_fee" name="registration_fee" readonly>
-          </td>
-        </tr>
-        <tr><th>총금액 (₩)</th><td><input type="text" id="total_fee" name="period_fee" readonly></td></tr>
-      </table>
+<script>
+  const contractAmount = document.getElementById('contract_amount');
+  const prepaidMonths = document.getElementById('prepaid_months');
+  const uniformFee = document.getElementById('uniform_fee');
+  const lockerFee = document.getElementById('locker_fee');
+  const registrationFee = document.getElementById('registration_fee');
+  const totalFee = document.getElementById('total_fee');
 
-      <!-- 운동 정보 및 기타 (생략 - 기존 그대로) -->
+  const membershipRadios = document.querySelectorAll('input[name="membership_type"]');
+  const uniformRadios = document.querySelectorAll('input[name="uniform"]');
+  const lockerRadios = document.querySelectorAll('input[name="locker"]');
+  const registrationRadios = document.querySelectorAll('input[name="registration"]');
 
-      <button type="submit" class="submit-button">계약서 제출</button>
-    </form>
-  </div>
+  const prices = {
+    '헬스': {1: 90000, 3: 240000, 6: 450000, 12: 840000},
+    '헬스+스피닝': {1: 120000, 3: 330000, 6: 600000, 12: 1100000}
+  };
 
-  <!-- 생년월일 셀렉트 -->
-  <script>
-    const yearSelect = document.getElementById("birth_year");
-    const monthSelect = document.getElementById("birth_month");
-    const daySelect = document.getElementById("birth_day");
-    const currentYear = new Date().getFullYear();
-    for (let y = currentYear; y >= 1920; y--) yearSelect?.add(new Option(y, y));
-    for (let m = 1; m <= 12; m++) monthSelect?.add(new Option(m, m));
-    for (let d = 1; d <= 31; d++) daySelect?.add(new Option(d, d));
-  </script>
+  function parseNumber(str) {
+    return parseInt(str.replace(/,/g, ''), 10) || 0;
+  }
 
-  <!-- 주소 검색 -->
-  <script>
-    function execDaumPostcode() {
-      new daum.Postcode({
-        oncomplete: function(data) {
-          document.getElementById('postcode').value = data.zonecode;
-          document.getElementById('address').value = data.roadAddress || data.jibunAddress;
-          document.getElementById('detailAddress').focus();
-        }
-      }).open();
+  function formatNumber(num) {
+    return num.toLocaleString();
+  }
+
+  function updateContractAmount() {
+    const type = document.querySelector('input[name="membership_type"]:checked')?.value;
+    const months = parseInt(prepaidMonths.value);
+    if (type && prices[type] && prices[type][months]) {
+      contractAmount.value = formatNumber(prices[type][months]);
+    } else {
+      contractAmount.value = '';
     }
-  </script>
+    updateTotal();
+  }
 
-  <!-- 자동 포커스 이동 -->
-  <script>
-    const formElements = Array.from(document.querySelectorAll(
-      'form#contractForm input:not([type=radio]):not([readonly]), form#contractForm select'
-    ));
-    formElements.forEach((el, i) => {
-      el.addEventListener('input', () => {
-        if (el.hasAttribute('maxlength') && el.value.length >= el.maxLength) {
-          const next = formElements[i + 1];
-          if (next) next.focus();
-        }
-      });
-      el.addEventListener('keydown', e => {
-        if (e.key === 'Enter') {
-          e.preventDefault();
-          const next = formElements[i + 1];
-          if (next) next.focus();
-        }
-      });
-    });
-  </script>
+  function updateExtras() {
+    const months = parseInt(prepaidMonths.value) || 0;
 
-  <!-- 금액 자동 계산 -->
-  <script>
-    const priceMap = {
-      "헬스": { "1": 90000, "3": 240000, "6": 450000, "12": 840000 },
-      "헬스+스피닝": { "1": 120000, "3": 330000, "6": 600000, "12": 1100000 }
-    };
+    uniformFee.value =
+      document.querySelector('input[name="uniform"]:checked')?.value === 'O'
+        ? formatNumber(months * 10000)
+        : '0';
 
-    function updateContractAmount() {
-      const type = document.querySelector('input[name="membership_type"]:checked')?.value;
-      const months = document.querySelector('select[name="prepaid_months"]').value;
-      const contractAmount = document.querySelector('input[name="contract_amount"]');
+    lockerFee.value =
+      document.querySelector('input[name="locker"]:checked')?.value === 'O'
+        ? formatNumber(months * 10000)
+        : '0';
 
-      if (type && months && priceMap[type] && priceMap[type][months]) {
-        contractAmount.value = priceMap[type][months].toLocaleString();
-      } else {
-        contractAmount.value = '';
-      }
+    registrationFee.value =
+      document.querySelector('input[name="registration"]:checked')?.value === 'X'
+        ? '20,000'
+        : '0';
 
-      updateTotalFee();
-    }
+    updateTotal();
+  }
 
-    function updateAddOnFee(fieldName, feeId, monthlyFee) {
-      const selected = document.querySelector(`input[name="${fieldName}"]:checked`)?.value;
-      const months = parseInt(document.querySelector('select[name="prepaid_months"]').value || 0);
-      const feeField = document.getElementById(feeId);
-      if (selected === "O") {
-        feeField.value = (months * monthlyFee).toLocaleString();
-      } else {
-        feeField.value = "0";
-      }
-      updateTotalFee();
-    }
+  function updateTotal() {
+    const total =
+      parseNumber(contractAmount.value) +
+      parseNumber(uniformFee.value) +
+      parseNumber(lockerFee.value) +
+      parseNumber(registrationFee.value);
+    totalFee.value = formatNumber(total);
+  }
 
-    function updateRegistrationFee() {
-      const selected = document.querySelector('input[name="regist"]:checked')?.value;
-      const feeField = document.getElementById("registration_fee");
-      feeField.value = selected === "X" ? "20,000" : "0";
-      updateTotalFee();
-    }
+  prepaidMonths.addEventListener('change', () => {
+    updateContractAmount();
+    updateExtras();
+  });
 
-    function updateTotalFee() {
-      const feeFields = ["contract_amount", "uniform_fee", "locker_fee", "registration_fee"];
-      let total = 0;
-      feeFields.forEach(id => {
-        const val = document.getElementById(id)?.value.replace(/,/g, "") || "0";
-        total += parseInt(val) || 0;
-      });
-      document.getElementById("total_fee").value = total.toLocaleString();
-    }
-
-    document.querySelectorAll('input[name="membership_type"], select[name="prepaid_months"]').forEach(el => {
-      el.addEventListener("change", updateContractAmount);
-    });
-
-    document.querySelectorAll('input[name="uniform"]').forEach(el =>
-      el.addEventListener("change", () => updateAddOnFee("uniform", "uniform_fee", 10000))
-    );
-    document.querySelectorAll('input[name="locker"]').forEach(el =>
-      el.addEventListener("change", () => updateAddOnFee("locker", "locker_fee", 10000))
-    );
-    document.querySelectorAll('input[name="regist"]').forEach(el =>
-      el.addEventListener("change", updateRegistrationFee)
-    );
-  </script>
+  membershipRadios.forEach(radio => radio.addEventListener('change', updateContractAmount));
+  uniformRadios.forEach(radio => radio.addEventListener('change', updateExtras));
+  lockerRadios.forEach(radio => radio.addEventListener('change', updateExtras));
+  registrationRadios.forEach(radio => radio.addEventListener('change', updateExtras));
+</script>
 </body>
 </html>
