@@ -106,10 +106,10 @@
     display: flex;
     align-items: center;
     padding: 10px 16px 10px 36px;
-    border: 2px solid #2980b9; /* 파란색 테두리 */
+    border: 2px solid #ccc; /* 기본 회색 테두리 */
     border-radius: 10px;
     cursor: pointer;
-    transition: 0.2s;
+    transition: 0.2s ease;
     font-size: 14px;
     background-color: #fff;
   }
@@ -118,24 +118,20 @@
     display: none;
   }
 
+  /* 동그란 버튼 */
   .radio-box::before {
     content: "";
     position: absolute;
     left: 12px;
     width: 16px;
     height: 16px;
-    border: 2px solid #2980b9; /* 파란색 동그라미 */
+    border: 2px solid #ccc;  /* 기본 회색 테두리 */
     border-radius: 50%;
     background-color: white;
-    box-sizing: border-box;
-    transition: 0.2s;
+    transition: 0.2s ease;
   }
 
-  .radio-box input[type="radio"]:checked ~ .radio-box::before {
-    background-color: #2980b9; /* 체크 시 내부도 파란색 */
-  }
-
-  /* 체크 시 동그란 버튼 안쪽만 채우기 */
+  /* 체크됐을 때 테두리와 동그란 버튼 파란색으로 */
   .radio-box input[type="radio"]:checked + .label-text::after {
     content: "";
     position: absolute;
@@ -144,8 +140,23 @@
     transform: translateY(-50%);
     width: 8px;
     height: 8px;
-    background-color: #2980b9;
+    background-color: #2980b9; /* 내부 채움 */
     border-radius: 50%;
+  }
+
+  .radio-box input[type="radio"]:checked ~ .radio-box,
+  .radio-box input[type="radio"]:checked + .label-text {
+    border-color: #2980b9;
+  }
+
+  .radio-box input[type="radio"]:checked ~ .radio-box::before {
+    border-color: #2980b9;
+  }
+
+  /* 체크된 radio에만 테두리 색 파란색으로 적용 */
+  .radio-box input[type="radio"]:checked + .label-text::before,
+  .radio-box input[type="radio"]:checked ~ .radio-box::before {
+    border-color: #2980b9;
   }
 
   .label-text {
