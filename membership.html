@@ -98,43 +98,32 @@
   .radio-box-group {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 10px;
+  gap: 8px; /* 버튼 간 간격 */
 }
 
 .radio-box {
   display: flex;
   align-items: center;
-  justify-content: center;
   border: 2px solid #ccc;
   border-radius: 8px;
-  padding: 6px 10px;
+  padding: 6px 12px;
   background-color: #fff;
   color: #333;
   font-size: 13px;
   cursor: pointer;
   transition: 0.2s ease;
-  width: 50px;
-  height: 36px;
-  position: relative;
 }
 
 .radio-box input[type="radio"] {
   display: none;
 }
 
-.radio-box span {
- /* width: 100%;*/
-  text-align: center;
-}
-
-/* ✅ 선택되었을 때 전체 버튼 스타일 변경 */
 .radio-box input[type="radio"]:checked + span {
   background-color: #2980b9;
   color: #fff;
-  border: none;
   border-radius: 6px;
-  padding: 6px 10px;
+  padding: 6px 12px;
+  border: 2px solid #2980b9;
 }
 </style>
     
@@ -226,25 +215,25 @@
     <span style="font-weight:normal; color:red;">(필수선택)</span>
   </th>
         <td>
-        <div class="radio-box-group">
-  <label class="radio-box">
-    <input type="radio" name="prepaid_months" value="1">
-    <span>1개월</span>
-  </label>
-  <label class="radio-box">
-    <input type="radio" name="prepaid_months" value="3">
-    <span>3개월</span>
-  </label>
-  <label class="radio-box">
-    <input type="radio" name="prepaid_months" value="6">
-    <span>6개월</span>
-  </label>
-  <label class="radio-box">
-    <input type="radio" name="prepaid_months" value="12">
-    <span>12개월</span>
-  </label>
-</div>
-        </td>
+    <div class="radio-box-group">
+      <label class="radio-box">
+        <input type="radio" name="prepaid_months" value="1">
+        <span>1개월</span>
+      </label>
+      <label class="radio-box">
+        <input type="radio" name="prepaid_months" value="3">
+        <span>3개월</span>
+      </label>
+      <label class="radio-box">
+        <input type="radio" name="prepaid_months" value="6">
+        <span>6개월</span>
+      </label>
+      <label class="radio-box">
+        <input type="radio" name="prepaid_months" value="12">
+        <span>12개월</span>
+      </label>
+    </div>
+  </td>
       </tr>
       <tr><th>계약 금액 (₩)</th><td><input type="text" name="contract_amount" readonly></td></tr>
       <tr>
