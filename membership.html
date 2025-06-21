@@ -114,7 +114,7 @@
       <tr>
   <th>
     <span style="color:red;">*</span> 성별 
-    <span style="font-weight:normal; color:red;">(필수입력)</span>
+    <span style="font-weight:normal; color:red;">(필수선택)</span>
   </th>
   <td>
     <label><input type="radio" name="gender" value="남성"> 남성</label>
@@ -134,7 +134,10 @@
         </td>
       </tr>
       <tr>
-        <th>연락처</th>
+        <th>
+    <span style="color:red;">*</span> 연락처
+    <span style="font-weight:normal; color:red;">(필수입력)</span>
+  </th>
         <td class="phone-input">
           <input type="text" value="010" readonly size="3"> -
           <input type="text" name="phone_mid" maxlength="4" size="4"> -
@@ -142,7 +145,10 @@
         </td>
       </tr>
       <tr>
-        <th>우편번호</th>
+        <th>
+    <span style="color:red;">*</span> 우편번호
+    <span style="font-weight:normal; color:red;">(필수입력)</span>
+  </th>
         <td>
           <input type="text" id="postcode" name="postcode" readonly style="width:45%; display:inline-block;">
           <button type="button" onclick="execDaumPostcode()" style="width:50%; display:inline-block;">우편번호 찾기</button>
@@ -160,7 +166,10 @@
     <h3>② 회원권 정보</h3>
     <table>
       <tr>
-        <th>회원권 종류</th>
+        <th>
+    <span style="color:red;">*</span> 회원권 종류
+    <span style="font-weight:normal; color:red;">(필수선택)</span>
+  </th>
         <td>
           <label><input type="radio" name="membership_type" value="헬스"> 헬스</label>
           &nbsp;&nbsp;
@@ -168,7 +177,10 @@
         </td>
       </tr>
       <tr>
-        <th>회원권 기간</th>
+        <th>
+    <span style="color:red;">*</span> 회원권 기간
+    <span style="font-weight:normal; color:red;">(필수선택)</span>
+  </th>
         <td>
           <select name="prepaid_months" id="prepaid_months">
             <option value="">선택</option>
@@ -181,7 +193,10 @@
       </tr>
       <tr><th>계약 금액 (₩)</th><td><input type="text" name="contract_amount" readonly></td></tr>
       <tr>
-        <th>운동복</th>
+        <th>
+    <span style="color:red;">*</span> 운동복
+    <span style="font-weight:normal; color:red;">(필수선택)</span>
+  </th>
         <td>
           <label><input type="radio" name="uniform_use" value="O"> O</label>
           <label><input type="radio" name="uniform_use" value="X"> X</label>
@@ -190,7 +205,10 @@
         </td>
       </tr>
       <tr>
-        <th>락커</th>
+        <th>
+    <span style="color:red;">*</span> 락커
+    <span style="font-weight:normal; color:red;">(필수선택)</span>
+  </th>
         <td>
           <label><input type="radio" name="locker_use" value="O"> O</label>
           <label><input type="radio" name="locker_use" value="X"> X</label>
@@ -199,7 +217,11 @@
         </td>
       </tr>
       <tr>
-        <th>리뷰작성<br>등록비 2만원</th>
+        <th>
+    <span style="color:red;">*</span> 리뷰작성<br>등록비 2만원
+    <span style="font-weight:normal; color:red;">(필수입력)</span>
+  </th>
+        
         <td>
           <label><input type="radio" name="registration_fee_check" value="O"> O</label>
           <label><input type="radio" name="registration_fee_check" value="X" checked> X</label>
@@ -213,14 +235,20 @@
     <!-- ③ 운동 정보 -->
     <h3>③ 운동 정보</h3>
     <table>
-      <th>운동 시간대</th>
+      <th>
+    <span style="color:red;">*</span> 운동 시간대
+    <span style="font-weight:normal; color:red;">(필수입력)</span>
+  </th>
     <td>
       <label><input type="checkbox" name="time" value="오전"> 오전</label>
       &nbsp;&nbsp;
       <label><input type="checkbox" name="time" value="오후"> 오후</label>
     </td>
       <tr>
-        <th>운동 목적</th>
+        <th>
+    <span style="color:red;">*</span> 운동 목적
+    <span style="font-weight:normal; color:red;">(필수선택)</span>
+  </th>
         <td>
           <select name="purpose">
             <option value="체중감량">체중감량</option>
@@ -236,7 +264,10 @@
     <h3>④ 기타 동의</h3>
     <table>
       <tr>
-        <th>SNS 동의</th>
+        <th>
+    <span style="color:red;">*</span> SNS 동의
+    <span style="font-weight:normal; color:red;">(필수입력)</span>
+  </th>
         <td>
     <label><input type="radio" name="sns_agree" value="동의"> 동의</label>
     &nbsp;&nbsp;
