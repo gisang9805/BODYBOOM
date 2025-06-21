@@ -94,6 +94,49 @@
       margin-top: 5px;
       color: #555;
     }
+    <style>
+  .radio-box-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .radio-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    padding: 10px 16px;
+    background-color: #fff;
+    color: #333;
+    font-size: 14px;
+    cursor: pointer;
+    transition: 0.2s ease;
+    position: relative;
+    min-width: 70px;
+  }
+
+  .radio-box input[type="radio"] {
+    display: none;
+  }
+
+  .radio-box input[type="radio"]:checked + .label-text {
+    background-color: #2980b9;
+    color: #fff;
+    border-color: #2980b9;
+  }
+
+  .label-text {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 2px 4px;
+    border-radius: 6px;
+    transition: 0.2s ease;
+  }
+</style>
+    
   </style>
 </head>
 <body>
