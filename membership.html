@@ -111,8 +111,8 @@
     cursor: pointer;
     font-size: 14px;
     background-color: #fff;
-    transition: 0.2s ease;
     color: #333;
+    transition: 0.2s ease;
   }
 
   .radio-box input[type="radio"] {
@@ -131,25 +131,21 @@
     transition: 0.2s ease;
   }
 
-  /* 선택된 상태: 전체 배경 파랑, 글자 흰색, 버튼 배경도 파랑 */
-  .radio-box input[type="radio"]:checked + .label-text {
+  /* 체크된 상태에서 radio-box 전체가 파랗게 */
+  .radio-box input[type="radio"]:checked ~ span {
     background-color: #2980b9;
     color: #fff;
-    border: none;
+    border: 2px solid #2980b9;
   }
 
-  .radio-box input[type="radio"]:checked + .label-text::before {
-    border: none;
+  .radio-box input[type="radio"]:checked ~ span::before {
+    border: 2px solid #2980b9;
     background-color: #2980b9;
   }
 
   .label-text {
     position: relative;
     width: 100%;
-  }
-
-  .radio-box:hover {
-    border-color: #999;
   }
 </style>
   </style>
