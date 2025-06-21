@@ -1,36 +1,398 @@
-.radio-box-group {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>BODYBOOM 회원 가입 계약서</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+    }
+    .container {
+      width: 95%;
+      max-width: 600px;
+      margin: 20px auto;
+      padding: 15px;
+      background-color: #ffffff;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    }
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+      font-size: 20px;
+      margin-bottom: 30px;
+    }
+    h3 {
+      color: #2c3e50;
+      font-size: 16px;
+      margin-top: 30px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 25px;
+      font-size: 14px;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: left;
+      vertical-align: middle;
+    }
+    th {
+      background-color: #ecf0f1;
+      width: 40%;
+    }
+    input[type="text"],
+    input[type="number"],
+    input[type="date"],
+    select {
+      width: 100%;
+      padding: 6px;
+      box-sizing: border-box;
+      font-size: 14px;
+    }
+    input[type="radio"] {
+      margin-right: 5px;
+    }
+    .submit-button {
+      background-color: #2980b9;
+      color: white;
+      padding: 10px 15px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 20px;
+      display: block;
+      width: 100%;
+    }
+    .submit-button:hover {
+      background-color: #1e6ea7;
+    }
+    select[name="birth_year"],
+    select[name="birth_month"],
+    select[name="birth_day"] {
+      width: 30%;
+      display: inline-block;
+      margin-right: 2%;
+    }
+    select[name="birth_day"] {
+      margin-right: 0;
+    }
+    .phone-input input {
+      width: auto;
+      display: inline-block;
+      text-align: center;
+    }
+    .fee-note {
+      display: inline-block;
+      margin-top: 5px;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>BODYBOOM 회원 가입 계약서</h1>
+  <form id="contractForm" onsubmit="handleSubmit(event)">
+
+    <!-- ① 인적사항 -->
+    <h3>① 인적사항</h3>
+    <table>
+      <tr>
+  <th>
+    <span style="color:red;">*</span> 성명 
+    <span style="font-weight:normal; color:red;">(필수입력)</span>
+  </th>
+  <td><input type="text" name="name" maxlength="20"></td>
+</tr>
+      <tr>
+  <th>
+    <span style="color:red;">*</span> 성별 
+    <span style="font-weight:normal; color:red;">(필수선택)</span>
+  </th>
+  <td>
+    <label><input type="radio" name="gender" value="남성"> 남성</label>
+    &nbsp;&nbsp;
+    <label><input type="radio" name="gender" value="여성"> 여성</label>
+  </td>
+</tr>
+      <tr>
+        <th>
+    <span style="color:red;">*</span> 생년월일
+    <span style="font-weight:normal; color:red;">(필수입력)</span>
+  </th>
+        <td>
+          <select name="birth_year" id="birth_year"><option value="">년도</option></select>
+          <select name="birth_month" id="birth_month"><option value="">월</option></select>
+          <select name="birth_day" id="birth_day"><option value="">일</option></select>
+        </td>
+      </tr>
+      <tr>
+        <th>
+    <span style="color:red;">*</span> 연락처
+    <span style="font-weight:normal; color:red;">(필수입력)</span>
+  </th>
+        <td class="phone-input">
+          <input type="text" value="010" readonly size="3"> -
+          <input type="text" name="phone_mid" maxlength="4" size="4"> -
+          <input type="text" name="phone_end" maxlength="4" size="4">
+        </td>
+      </tr>
+      <tr>
+        <th>
+    <span style="color:red;">*</span> 우편번호
+    <span style="font-weight:normal; color:red;">(필수입력)</span>
+  </th>
+        <td>
+          <input type="text" id="postcode" name="postcode" readonly style="width:45%; display:inline-block;">
+          <button type="button" onclick="execDaumPostcode()" style="width:50%; display:inline-block;">우편번호 찾기</button>
+        </td>
+      </tr>
+      <tr><th>주소</th><td><input type="text" id="address" name="address" readonly></td></tr>
+      <tr><th>상세주소 <span style="font-weight:normal; color:#888;">(선택사항)</span></th>
+    <td><input type="text" id="detailAddress" name="detailAddress"></td></tr>
+
+      <tr><th>추천인 <span style="font-weight:normal; color:#888;">(선택사항)</span></th>
+    <td><input type="text" name="referrer"></td></tr>
+      </table>
+
+    <!-- ② 회원권 정보 -->
+    <h3>② 회원권 정보</h3>
+    <table>
+      <tr>
+        <th>
+    <span style="color:red;">*</span> 회원권 종류
+    <span style="font-weight:normal; color:red;">(필수입력)</span>
+  </th>
+        <td>
+          <label><input type="radio" name="membership_type" value="헬스"> 헬스</label>
+          &nbsp;&nbsp;
+          <label><input type="radio" name="membership_type" value="헬스+스피닝"> 헬스+스피닝</label>
+        </td>
+      </tr>
+      <tr>
+        <th>
+    <span style="color:red;">*</span> 회원권 기간
+    <span style="font-weight:normal; color:red;">(필수선택)</span>
+  </th>
+        <td>
+          <select name="prepaid_months" id="prepaid_months">
+            <option value="">선택</option>
+            <option value="1">1개월</option>
+            <option value="3">3개월</option>
+            <option value="6">6개월</option>
+            <option value="12">12개월</option>
+          </select>
+        </td>
+      </tr>
+      <tr><th>계약 금액 (₩)</th><td><input type="text" name="contract_amount" readonly></td></tr>
+      <tr>
+        <th>
+    <span style="color:red;">*</span> 운동복
+    <span style="font-weight:normal; color:red;">(필수선택)</span>
+  </th>
+        <td>
+          <label><input type="radio" name="uniform_use" value="O"> O</label>
+          <label><input type="radio" name="uniform_use" value="X"> X</label>
+          <span id="uniform_price" style="margin-left: 10px; display: inline-block;"></span>
+          <div class="fee-note" id="uniform_fee_note"></div>
+        </td>
+      </tr>
+      <tr>
+        <th>
+    <span style="color:red;">*</span> 락커
+    <span style="font-weight:normal; color:red;">(필수선택)</span>
+  </th>
+        <td>
+          <label><input type="radio" name="locker_use" value="O"> O</label>
+          <label><input type="radio" name="locker_use" value="X"> X</label>
+          <span id="uniform_price" style="margin-left: 10px; display: inline-block;"></span>
+          <div class="fee-note" id="locker_fee_note"></div>
+        </td>
+      </tr>
+      <tr>
+        <th>
+    <span style="color:red;">*</span> 리뷰작성<br>등록비 2만원
+    <span style="font-weight:normal; color:red;">(필수입력)</span>
+  </th>
+        
+        <td>
+          <label><input type="radio" name="registration_fee_check" value="O"> O</label>
+          <label><input type="radio" name="registration_fee_check" value="X" checked> X</label>
+          <span id="uniform_price" style="margin-left: 10px; display: inline-block;"></span>
+          <div class="fee-note" id="registration_fee_note"></div>
+        </td>
+      </tr>
+      <tr><th>총금액 (₩)</th><td><input type="text" name="total_amount" readonly></td></tr>
+    </table>
+
+    <!-- ③ 운동 정보 -->
+    <h3>③ 운동 정보</h3>
+    <table>
+      <th>
+    <span style="color:red;">*</span> 운동 시간대
+    <span style="font-weight:normal; color:red;">(필수입력)</span>
+  </th>
+    <td>
+      <label><input type="checkbox" name="time" value="오전"> 오전</label>
+      &nbsp;&nbsp;
+      <label><input type="checkbox" name="time" value="오후"> 오후</label>
+    </td>
+      <tr>
+        <th>
+    <span style="color:red;">*</span> 운동 목적
+    <span style="font-weight:normal; color:red;">(필수선택)</span>
+  </th>
+        <td>
+          <select name="purpose">
+            <option value="체중감량">체중감량</option>
+            <option value="체중증량">체중증량</option>
+            <option value="건강">건강</option>
+            <option value="재활">재활</option>
+          </select>
+        </td>
+      </tr>
+    </table>
+
+    <!-- ④ 기타 -->
+    <h3>④ 기타 동의</h3>
+    <table>
+      <tr>
+        <th>
+    <span style="color:red;">*</span> SNS 동의
+    <span style="font-weight:normal; color:red;">(필수입력)</span>
+  </th>
+        <td>
+    <label><input type="radio" name="sns_agree" value="동의"> 동의</label>
+    &nbsp;&nbsp;
+    <label><input type="radio" name="sns_agree" value="비동의"> 비동의</label>
+  </td>
+      </tr>
+    </table>
+
+    <button type="submit" class="submit-button">계약서 제출</button>
+  </form>
+</div>
+
+<script>
+  const yearSelect = document.getElementById("birth_year");
+  const monthSelect = document.getElementById("birth_month");
+  const daySelect = document.getElementById("birth_day");
+  const currentYear = new Date().getFullYear();
+  for (let y = currentYear; y >= 1920; y--) yearSelect.add(new Option(y, y));
+  for (let m = 1; m <= 12; m++) monthSelect.add(new Option(m, m));
+  for (let d = 1; d <= 31; d++) daySelect.add(new Option(d, d));
+
+  function execDaumPostcode() {
+    new daum.Postcode({
+      oncomplete: function(data) {
+        document.getElementById('postcode').value = data.zonecode;
+        document.getElementById('address').value = data.roadAddress || data.jibunAddress;
+        document.getElementById('detailAddress').focus();
+      }
+    }).open();
+  }
+
+  const priceMap = {
+    "헬스": { "1": 90000, "3": 210000, "6": 300000, "12": 480000 },
+    "헬스+스피닝": { "1": 180000, "3": 360000, "6": 600000, "12": 840000 }
+  };
+
+  const membershipTypeInputs = document.querySelectorAll('input[name="membership_type"]');
+  const prepaidSelect = document.getElementById('prepaid_months');
+  const contractAmountInput = document.querySelector('input[name="contract_amount"]');
+  const totalAmountInput = document.querySelector('input[name="total_amount"]');
+
+  const uniformRadios = document.querySelectorAll('input[name="uniform_use"]');
+  const lockerRadios = document.querySelectorAll('input[name="locker_use"]');
+  const regRadios = document.querySelectorAll('input[name="registration_fee_check"]');
+
+  function updateAllPrices() {
+    const type = document.querySelector('input[name="membership_type"]:checked')?.value;
+    const months = prepaidSelect.value;
+
+    let contract = priceMap[type]?.[months] || 0;
+    contractAmountInput.value = contract ? contract.toLocaleString() : "";
+
+    const uniform = document.querySelector('input[name="uniform_use"]:checked')?.value === "O" ? 10000 * months : 0;
+    const locker = document.querySelector('input[name="locker_use"]:checked')?.value === "O" ? 10000 * months : 0;
+    const regFee = document.querySelector('input[name="registration_fee_check"]:checked')?.value === "X" ? 20000 : 0;
+
+    document.getElementById('uniform_fee_note').innerText = uniform ? `${uniform.toLocaleString()}원` : '';
+    document.getElementById('locker_fee_note').innerText = locker ? `${locker.toLocaleString()}원` : '';
+    document.getElementById('registration_fee_note').innerText = regFee ? `${regFee.toLocaleString()}원` : '0원';
+
+    const total = contract + uniform + locker + regFee;
+    totalAmountInput.value = total.toLocaleString();
+  }
+
+  membershipTypeInputs.forEach(el => el.addEventListener('change', updateAllPrices));
+  prepaidSelect.addEventListener('change', updateAllPrices);
+  [...uniformRadios, ...lockerRadios, ...regRadios].forEach(el => el.addEventListener('change', updateAllPrices));
+
+  // 👉 제출 시 페이지 이동
+  function handleSubmit(event) {
+  event.preventDefault(); // 기본 제출 막기
+  const form = document.getElementById('contractForm');
+  const formData = new FormData(form);
+  const data = {};
+
+  // 필수 항목 목록 (상세주소, 추천인 제외)
+  const requiredFields = {
+    name: "성명",
+    gender: "성별",
+    birth_year: "출생년도",
+    birth_month: "출생월",
+    birth_day: "출생일",
+    phone_mid: "전화번호 가운데 자리",
+    phone_end: "전화번호 끝자리",
+    address: "주소",
+    membership_type: "회원권 종류",
+    prepaid_months: "회원권 기간",
+    uniform_use: "운동복 사용 여부",
+    locker_use: "락커 사용 여부",
+    registration_fee_check: "등록비 여부",
+    purpose: "운동 목적",
+    sns_agree: "SNS 동의 여부"
+  };
+
+  for (const field in requiredFields) {
+    const value = formData.getAll(field);
+    if (!value || value.length === 0 || value[0].trim() === '') {
+      alert(`"${requiredFields[field]}" 항목을 입력해주세요.`);
+      return;
+    }
+  }
+
+  // 운동 시간대 체크 여부
+  const timeSelected = formData.getAll("time");
+  if (timeSelected.length === 0) {
+    alert("운동 시간대를 하나 이상 선택해주세요.");
+    return;
+  }
+
+  // 데이터 저장
+  for (const [key, value] of formData.entries()) {
+    if (key === "time") {
+      if (!data[key]) data[key] = [];
+      data[key].push(value);
+    } else {
+      data[key] = value;
+    }
+  }
+
+  localStorage.setItem('contractData', JSON.stringify(data));
+  window.location.href = 'next.html'; // 요약 페이지로 이동
 }
 
-.radio-box {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10px 16px;
-  border: 2px solid #ccc;
-  border-radius: 10px;
-  cursor: pointer;
-  font-size: 14px;
-  background-color: #fff;
-  color: #333;
-  transition: 0.2s ease;
-}
+</script>
+</body>
+</html>
 
-.radio-box input[type="radio"] {
-  display: none;
-}
-
-/* ✅ 선택되었을 때 전체 배경과 글자색 변경 */
-.radio-box input[type="radio"]:checked ~ span {
-  background-color: #2980b9;
-  color: #fff;
-  border: 2px solid #2980b9;
-}
-
-.label-text {
-  width: 100%;
-  text-align: center;
-}
+이렇게 바꿨엉
