@@ -94,6 +94,63 @@
       margin-top: 5px;
       color: #555;
     }
+    .radio-box-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .radio-box {
+    display: flex;
+    align-items: center;
+    padding: 10px 14px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.2s;
+    font-size: 14px;
+    background-color: #fff;
+    position: relative;
+  }
+
+  .radio-box input[type="radio"] {
+    display: none;
+  }
+
+  .radio-box::before {
+    content: "";
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    margin-right: 10px;
+    background-color: #fff;
+  }
+
+  .radio-box input[type="radio"]:checked + .label-text {
+    font-weight: bold;
+    color: #2980b9;
+  }
+
+  .radio-box input[type="radio"]:checked ~ ::before {
+    border-color: #2980b9;
+    background-color: #2980b9;
+    box-shadow: inset 0 0 0 3px white;
+  }
+
+  .radio-box input[type="radio"]:checked + .label-text::after {
+    content: "✓";
+    color: #2980b9;
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    font-size: 12px;
+  }
+
+  .label-text {
+    position: relative;
+  }
   </style>
 </head>
 <body>
@@ -182,13 +239,27 @@
     <span style="font-weight:normal; color:red;">(필수선택)</span>
   </th>
   <td>
-    <label><input type="radio" name="prepaid_months" value="1"> 1개월</label>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <label><input type="radio" name="prepaid_months" value="3"> 3개월</label>
-    <br>
-    <label><input type="radio" name="prepaid_months" value="6"> 6개월</label>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <label><input type="radio" name="prepaid_months" value="12"> 12개월</label>
+    <div class="radio-box-group">
+  <label class="radio-box">
+    <input type="radio" name="prepaid_months" value="1">
+    <span class="label-text">1개월</span>
+  </label>
+
+  <label class="radio-box">
+    <input type="radio" name="prepaid_months" value="3">
+    <span class="label-text">3개월</span>
+  </label>
+
+  <label class="radio-box" style="display:block; width:100%; margin-top:8px;">
+    <input type="radio" name="prepaid_months" value="6">
+    <span class="label-text">6개월</span>
+  </label>
+
+  <label class="radio-box">
+    <input type="radio" name="prepaid_months" value="12">
+    <span class="label-text">12개월</span>
+  </label>
+</div>
   </td>
 </tr>
       <tr><th>계약 금액 (₩)</th><td><input type="text" name="contract_amount" readonly></td></tr>
