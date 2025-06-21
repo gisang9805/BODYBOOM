@@ -292,27 +292,47 @@
 
   // 👉 제출 시 페이지 이동
   function handleSubmit(event) {
-    event.preventDefault(); // 기본 제출 막기
-    const form = document.getElementById('contractForm');
-    const formData = new FormData(form);
-    const data = {};
+  event.preventDefault(); // 기본 제출 막기
+  const form = document.getElementById('contractForm');
+  const formData = new FormData(form);
+  const data = {};
 
-    for (const [key, value] of formData.entries()) {
-    // 운동 시간대 체크박스는 여러 개 선택 가능
+  // 유효성 검사
+  const requiredFields = [
+    'name', 'gender', 'birth_year', 'birth_month', 'birth_day',
+    'phone_mid', 'phone_end', 'address', 'detailAddress',
+    'membership_type', 'prepaid_months', 'uniform_use',
+    'locker_use', 'registration_fee_check', 'purpose', 'sns_agree'
+  ];
+
+  for (const field of requiredFields) {
+    const value = formData.getAll(field);
+    if (!value || value.length === 0 || value[0].trim() === '') {
+      alert(`"${field}" 항목을 입력해주세요.`);
+      return;
+    }
+  }
+
+  // 운동 시간대 체크 여부
+  const timeSelected = formData.getAll("time");
+  if (timeSelected.length === 0) {
+    alert("운동 시간대를 하나 이상 선택해주세요.");
+    return;
+  }
+
+  // 값 저장
+  for (const [key, value] of formData.entries()) {
     if (key === "time") {
       if (!data[key]) data[key] = [];
       data[key].push(value);
     } else {
       data[key] = value;
     }
-    };
-   // formData.forEach((value, key) => {
-    //  data[key] = value;
- //   });
-    localStorage.setItem('contractData', JSON.stringify(data));
-    window.location.href = 'next.html'; // 요약 페이지로 이동
   }
 
+  localStorage.setItem('contractData', JSON.stringify(data));
+  window.location.href = 'next.html'; // 요약 페이지로 이동
+}
 </script>
 </body>
 </html>
