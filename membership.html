@@ -94,7 +94,8 @@
       margin-top: 5px;
       color: #555;
     }
-    .radio-box-group {
+    <style>
+  .radio-box-group {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
@@ -110,7 +111,6 @@
     transition: 0.2s;
     font-size: 14px;
     background-color: #fff;
-    position: relative;
   }
 
   .radio-box input[type="radio"] {
@@ -126,31 +126,23 @@
     border-radius: 50%;
     margin-right: 10px;
     background-color: #fff;
+    transition: 0.2s;
   }
 
   .radio-box input[type="radio"]:checked + .label-text {
-    font-weight: bold;
     color: #2980b9;
+    font-weight: bold;
   }
 
   .radio-box input[type="radio"]:checked ~ ::before {
     border-color: #2980b9;
     background-color: #2980b9;
-    box-shadow: inset 0 0 0 3px white;
-  }
-
-  .radio-box input[type="radio"]:checked + .label-text::after {
-    content: "✓";
-    color: #2980b9;
-    position: absolute;
-    top: 8px;
-    right: 10px;
-    font-size: 12px;
   }
 
   .label-text {
     position: relative;
   }
+</style>
   </style>
 </head>
 <body>
