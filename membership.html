@@ -102,66 +102,51 @@
   }
 
   .radio-box {
-    position: relative;
-    display: flex;
-    align-items: center;
-    padding: 10px 16px 10px 36px;
-    border: 2px solid #ccc; /* 기본 회색 테두리 */
+    width: 47%;
+    height: 45px;
+    border: 1px solid #EAE7E7;
     border-radius: 10px;
-    cursor: pointer;
-    transition: 0.2s ease;
-    font-size: 14px;
-    background-color: #fff;
+    display: inline-block;
+    margin: 5px 1%;
+    vertical-align: top;
+    box-sizing: border-box;
   }
 
   .radio-box input[type="radio"] {
     display: none;
   }
 
-  /* 동그란 버튼 */
-  .radio-box::before {
-    content: "";
-    position: absolute;
-    left: 12px;
-    width: 16px;
-    height: 16px;
-    border: 2px solid #ccc;  /* 기본 회색 테두리 */
-    border-radius: 50%;
-    background-color: white;
-    transition: 0.2s ease;
+  .radio-box label {
+    display: block;
+    border-radius: 10px;
+    margin: 0 auto;
+    text-align: center;
+    height: 100%;
+    line-height: 45px;
+    font-size: 14px;
+    cursor: pointer;
   }
 
-  /* 체크됐을 때 테두리와 동그란 버튼 파란색으로 */
-  .radio-box input[type="radio"]:checked + .label-text::after {
-    content: "";
-    position: absolute;
-    left: 17px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 8px;
-    height: 8px;
-    background-color: #2980b9; /* 내부 채움 */
-    border-radius: 50%;
+  .radio-box input[type=radio]:checked + label {
+    background: #184DA0;
+    color: #fff;
   }
 
-  .radio-box input[type="radio"]:checked ~ .radio-box,
-  .radio-box input[type="radio"]:checked + .label-text {
-    border-color: #2980b9;
+  .radio-box label:hover {
+    color: #666;
   }
 
-  .radio-box input[type="radio"]:checked ~ .radio-box::before {
-    border-color: #2980b9;
+  .radio-box input[type=radio] + label {
+    background: #F9FAFC;
+    color: #666;
   }
 
-  /* 체크된 radio에만 테두리 색 파란색으로 적용 */
-  .radio-box input[type="radio"]:checked + .label-text::before,
-  .radio-box input[type="radio"]:checked ~ .radio-box::before {
-    border-color: #2980b9;
+  /* 밑줄로 내릴 항목을 위한 스타일 */
+  .radio-box.full-width {
+    width: 100%;
+    margin-top: 5px;
   }
 
-  .label-text {
-    position: relative;
-  }
 </style>
   </style>
 </head>
