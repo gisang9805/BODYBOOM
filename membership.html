@@ -102,52 +102,67 @@
   }
 
   .radio-box {
-    width: 47%;
-    height: 45px;
-    border: 1px solid #EAE7E7;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 10px 16px 10px 36px;
+    border: 2px solid #ccc;
     border-radius: 10px;
-    display: inline-block;
-    margin: 5px 1%;
-    vertical-align: top;
-    box-sizing: border-box;
+    cursor: pointer;
+    transition: 0.2s ease;
+    font-size: 14px;
+    background-color: #fff;
   }
 
   .radio-box input[type="radio"] {
     display: none;
   }
 
-  .radio-box label {
-    display: block;
-    border-radius: 10px;
-    margin: 0 auto;
-    text-align: center;
-    height: 100%;
-    line-height: 45px;
-    font-size: 14px;
-    cursor: pointer;
+  .radio-box::before {
+    content: "";
+    position: absolute;
+    left: 12px;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    background-color: white;
+    transition: 0.2s ease;
   }
 
-  .radio-box input[type=radio]:checked + label {
-    background: #184DA0;
-    color: #fff;
+  /* 선택되었을 때 스타일 */
+  .radio-box input[type="radio"]:checked + .label-text {
+    color: #2980b9;
+    border-color: #2980b9;
   }
 
-  .radio-box label:hover {
-    color: #666;
+  .radio-box input[type="radio"]:checked + .label-text::before {
+    border-color: #2980b9;
   }
 
-  .radio-box input[type=radio] + label {
-    background: #F9FAFC;
-    color: #666;
+  .radio-box input[type="radio"]:checked + .label-text::after {
+    content: "";
+    position: absolute;
+    left: 17px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 8px;
+    height: 8px;
+    background-color: #2980b9;
+    border-radius: 50%;
   }
 
-  /* 밑줄로 내릴 항목을 위한 스타일 */
-  .radio-box.full-width {
+  .label-text {
+    position: relative;
     width: 100%;
-    margin-top: 5px;
   }
 
+  /* 버튼 hover 시 효과 */
+  .radio-box:hover {
+    border-color: #999;
+  }
 </style>
+  
   </style>
 </head>
 <body>
