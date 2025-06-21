@@ -177,20 +177,20 @@
         </td>
       </tr>
       <tr>
-        <th>
+  <th>
     <span style="color:red;">*</span> 회원권 기간
     <span style="font-weight:normal; color:red;">(필수선택)</span>
   </th>
-        <td>
-          <select name="prepaid_months" id="prepaid_months">
-            <option value="">선택</option>
-            <option value="1">1개월</option>
-            <option value="3">3개월</option>
-            <option value="6">6개월</option>
-            <option value="12">12개월</option>
-          </select>
-        </td>
-      </tr>
+  <td>
+    <label><input type="radio" name="prepaid_months" value="1"> 1개월</label>
+    &nbsp;&nbsp;
+    <label><input type="radio" name="prepaid_months" value="3"> 3개월</label>
+    &nbsp;&nbsp;
+    <label><input type="radio" name="prepaid_months" value="6"> 6개월</label>
+    &nbsp;&nbsp;
+    <label><input type="radio" name="prepaid_months" value="12"> 12개월</label>
+  </td>
+</tr>
       <tr><th>계약 금액 (₩)</th><td><input type="text" name="contract_amount" readonly></td></tr>
       <tr>
         <th>
@@ -315,7 +315,7 @@
 
   function updateAllPrices() {
     const type = document.querySelector('input[name="membership_type"]:checked')?.value;
-    const months = prepaidSelect.value;
+    const months = document.querySelector('input[name="prepaid_months"]:checked')?.value;
 
     let contract = priceMap[type]?.[months] || 0;
     contractAmountInput.value = contract ? contract.toLocaleString() : "";
