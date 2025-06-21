@@ -297,18 +297,29 @@
   const formData = new FormData(form);
   const data = {};
 
-  // 유효성 검사
-  const requiredFields = [
-    'name', 'gender', 'birth_year', 'birth_month', 'birth_day',
-    'phone_mid', 'phone_end', 'address', 'detailAddress',
-    'membership_type', 'prepaid_months', 'uniform_use',
-    'locker_use', 'registration_fee_check', 'purpose', 'sns_agree'
-  ];
+  // 필수 항목 목록 (상세주소, 추천인 제외)
+  const requiredFields = {
+    name: "성명",
+    gender: "성별",
+    birth_year: "출생년도",
+    birth_month: "출생월",
+    birth_day: "출생일",
+    phone_mid: "전화번호 가운데 자리",
+    phone_end: "전화번호 끝자리",
+    address: "주소",
+    membership_type: "회원권 종류",
+    prepaid_months: "회원권 기간",
+    uniform_use: "운동복 사용 여부",
+    locker_use: "락커 사용 여부",
+    registration_fee_check: "등록비 여부",
+    purpose: "운동 목적",
+    sns_agree: "SNS 동의 여부"
+  };
 
-  for (const field of requiredFields) {
+  for (const field in requiredFields) {
     const value = formData.getAll(field);
     if (!value || value.length === 0 || value[0].trim() === '') {
-      alert(`"${field}" 항목을 입력해주세요.`);
+      alert(`"${requiredFields[field]}" 항목을 입력해주세요.`);
       return;
     }
   }
@@ -320,7 +331,7 @@
     return;
   }
 
-  // 값 저장
+  // 데이터 저장
   for (const [key, value] of formData.entries()) {
     if (key === "time") {
       if (!data[key]) data[key] = [];
@@ -333,6 +344,7 @@
   localStorage.setItem('contractData', JSON.stringify(data));
   window.location.href = 'next.html'; // 요약 페이지로 이동
 }
+
 </script>
 </body>
 </html>
