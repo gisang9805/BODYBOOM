@@ -98,7 +98,7 @@
   .radio-box-group {
   display: flex;
   flex-wrap: wrap;
- /* gap: 10px; */
+  gap: 8px;
 }
 
 .radio-box {
@@ -107,37 +107,33 @@
   justify-content: center;
   border: 2px solid #ccc;
   border-radius: 8px;
-  padding: 6px 12px;
+  padding: 6px 10px;
   background-color: #fff;
   color: #333;
-  font-size: 14px;
+  font-size: 13px;
   cursor: pointer;
   transition: 0.2s ease;
-  width: 40px;
-  height: 25px;
+  min-width: 70px;
+  height: 36px;
+  position: relative;
 }
 
 .radio-box input[type="radio"] {
   display: none;
 }
 
-/* ✅ 라디오 버튼이 체크됐을 때 라벨 자체에 적용 */
+.radio-box span {
+  width: 100%;
+  text-align: center;
+}
+
+/* ✅ 선택되었을 때 전체 버튼 스타일 변경 */
 .radio-box input[type="radio"]:checked + span {
   background-color: #2980b9;
   color: #fff;
-  border: 3px solid #2980b9;
-}
-
-/* ✅ label 자체가 파란색이 되도록 */
-.radio-box input[type="radio"]:checked ~ .radio-box {
-  background-color: #2980b9;
-  border-color: #2980b9;
-  color: white;
-}
-
-/* ✅ label 태그를 감싸는 스타일이 바뀌도록 label 자체에 적용 */
-.radio-box input[type="radio"]:checked + span::before {
-  content: "";
+  border: none;
+  border-radius: 6px;
+  padding: 6px 10px;
 }
 </style>
     
