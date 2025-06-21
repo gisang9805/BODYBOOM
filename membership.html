@@ -94,60 +94,42 @@
       margin-top: 5px;
       color: #555;
     }
-    <style>
-  .radio-box-group {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
+    .radio-box-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
 
-  .radio-box {
-    position: relative;
-    display: flex;
-    align-items: center;
-    padding: 10px 16px 10px 36px;
-    border: 2px solid #ccc;
-    border-radius: 10px;
-    cursor: pointer;
-    font-size: 14px;
-    background-color: #fff;
-    color: #333;
-    transition: 0.2s ease;
-  }
+.radio-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 16px;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  background-color: #fff;
+  color: #333;
+  transition: 0.2s ease;
+}
 
-  .radio-box input[type="radio"] {
-    display: none;
-  }
+.radio-box input[type="radio"] {
+  display: none;
+}
 
-  .radio-box::before {
-    content: "";
-    position: absolute;
-    left: 12px;
-    width: 16px;
-    height: 16px;
-    border: 2px solid #ccc;
-    border-radius: 50%;
-    background-color: white;
-    transition: 0.2s ease;
-  }
+/* ✅ 선택되었을 때 전체 배경과 글자색 변경 */
+.radio-box input[type="radio"]:checked ~ span {
+  background-color: #2980b9;
+  color: #fff;
+  border: 2px solid #2980b9;
+}
 
-  /* 체크된 상태에서 radio-box 전체가 파랗게 */
-  .radio-box input[type="radio"]:checked ~ span {
-    background-color: #2980b9;
-    color: #fff;
-    border: 2px solid #2980b9;
-  }
-
-  .radio-box input[type="radio"]:checked ~ span::before {
-    border: 2px solid #2980b9;
-    background-color: #2980b9;
-  }
-
-  .label-text {
-    position: relative;
-    width: 100%;
-  }
-</style>
+.label-text {
+  width: 100%;
+  text-align: center;
+}
   </style>
 </head>
 <body>
